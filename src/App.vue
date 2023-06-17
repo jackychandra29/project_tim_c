@@ -1,17 +1,40 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+<!-- ======= Header ======= -->
+  <Header></Header>
+<!-- End Header -->
+
+<!-- ======= Sidebar ======= -->
+  <Sidebar></Sidebar>
+<!-- End Sidebar-->
+
+<!-- Main -->
+<router-view></router-view>
+<!-- End #main -->
+
+<!-- ======= Footer ======= -->
+  <Footer></Footer>
+<!-- End Footer -->
+
+    <a
+      href="#"
+      class="back-to-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Header from './components/Header.vue'
+import Sidebar from './components/Sidebar.vue'
+import Footer from './components/Footer.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
-}
+    Header,
+    Sidebar,
+    Footer,
+  },
+};
 </script>
 
 <style>
