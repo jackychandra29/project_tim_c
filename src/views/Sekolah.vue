@@ -81,13 +81,12 @@
                     </thead>
                     <tbody>
                       <tr
-                        v-for="skl in sekolah.slice(0, 5)"
-                        :key="skl.NPSN"
+                        v-for="(skl, NPSN) in sekolahs.slice(0, 5)" :key="NPSN"
                       >
                         <td style="text-align: left;">{{ skl.NPSN }}</td>
                         <td style="text-align: left;">{{ skl.Nama_SP }}</td>
                         <td style="text-align: left;">{{ skl.Bentuk_pendidikan }}</td>
-                        <td style="text-align: left;">{{ skl.Status_sekolah }}</td>
+                        <td style="text-align: left;">{{ skl.Status_skl }}</td>
                         <td style="text-align: left;">{{ skl.Kode_kecamatan }}</td>
                         <td style="text-align: left;">{{ skl.Kode_kabKota }}</td>
                       </tr>
@@ -112,32 +111,45 @@
 
 <script>
 import axios from "axios";
+import { onMounted, ref } from "vue";
+
 export default {
-  name: "Sekolah",
-  data() {
-    return {
-      sekolah: [],
-    };
-  },
-  created() {
-    this.getSekolah();
-  },
-  methods: {
-    async getSekolah() {
-      let url = "http://127.0.0.1:8000/api/sekolah";
-      await axios
-        .get(url)
+  setup() {
+    //reactive state
+    let sekolahs = ref([]);
+
+    //mounted
+    onMounted(() => {
+      //get API from Laravel Backend
+      axios
+        .get("http://localhost:8000/api/sekolah")
         .then((response) => {
-          this.sekolah = response.data.sekolah;
-          console.log(this.sekolah);
+          //asign state sekolahs with response data
+          sekolahs.value = response.data.data;
         })
         .catch((error) => {
-          console.log(error);
+          console.log(error.response.data);
         });
-    },
-  },
-  mounted() {
-    console.log("Sekolah List Component Mounted");
+    });
+    //method delete
+    function sekolahDelete(id) {
+      //delete data sekolah by ID
+      axios
+        .delete(`http://localhost:8000/api/sekolah/${id}`)
+        .then(() => {
+          //splice sekolahs
+          sekolahs.value.splice(sekolahs.value.indexOf(id), 1);
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+        });
+    }
+
+    //return
+    return {
+      sekolahs,
+      sekolahDelete,
+    };
   },
 };
 </script>

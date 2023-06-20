@@ -4,7 +4,7 @@ import Dashboard from '../views/Dashboard';
 import Sekolah from '../views/Sekolah';
 import Jurusan from '../views/Jurusan';
 import Ruang from '../views/Ruang';
-import Staf from '../views/Staf';
+import Staff from '../views/Staff';
 import Siswa from '../views/Siswa';
 import Rombel from '../views/Rombel';
 
@@ -30,9 +30,9 @@ const routes = [
         component: Ruang
     },
     {
-        name: 'Staf',
-        path: '/staf',
-        component: Staf
+        name: 'Staff',
+        path: '/staff',
+        component: Staff
     },
     {
         name: 'Siswa',

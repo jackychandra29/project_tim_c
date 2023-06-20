@@ -96,8 +96,7 @@
                     </thead>
                     <tbody>
                       <tr
-                        v-for="rbl in rombel.slice(0, 5)"
-                        :key="rbl.Kode_rombel"
+                        v-for="(rbl,Kode_rombel)  in rombels.slice(0, 5)" :key="Kode_rombel"
                       >
                         <td style="text-align: left;">{{ rbl.Kode_rombel }}</td>
                         <td style="text-align: left;">{{ rbl.Nama_rombel }}</td>
@@ -130,32 +129,45 @@
 
 <script>
 import axios from "axios";
+import { onMounted, ref } from "vue";
+
 export default {
-  name: "Rombel",
-  data() {
-    return {
-     rombel: [],
-    };
-  },
-  created() {
-    this.getRombel();
-  },
-  methods: {
-    async getRombel() {
-      let url = "http://127.0.0.1:8000/api/rombel";
-      await axios
-        .get(url)
+  setup() {
+    //reactive state
+    let rombels = ref([]);
+
+    //mounted
+    onMounted(() => {
+      //get API from Laravel Backend
+      axios
+        .get("http://localhost:8000/api/rombel")
         .then((response) => {
-          this.rombel = response.data.rombel;
-          console.log(this.rombel);
+          //asign state rombels with response data
+          rombels.value = response.data.data;
         })
         .catch((error) => {
-          console.log(error);
+          console.log(error.response.data);
         });
-    },
-  },
-  mounted() {
-    console.log("Rombel List Component Mounted");
+    });
+    //method delete
+    function rombelDelete(id) {
+      //delete data rombel by ID
+      axios
+        .delete(`http://localhost:8000/api/rombel/${id}`)
+        .then(() => {
+          //splice rombels
+          rombels.value.splice(rombels.value.indexOf(id), 1);
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+        });
+    }
+
+    //return
+    return {
+      rombels,
+      rombelDelete,
+    };
   },
 };
 </script>

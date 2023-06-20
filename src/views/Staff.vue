@@ -1,12 +1,12 @@
 <template>
   <main id="main" class="main">
     <div class="pagetitle">
-      <h1 style="text-align: left;">Data Sebaran Staf</h1>
+      <h1 style="text-align: left;">Data Sebaran Staff</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
           <li class="breadcrumb-item">Tables</li>
-          <li class="breadcrumb-item active">Staf</li>
+          <li class="breadcrumb-item active">Staff</li>
         </ol>
       </nav>
     </div>
@@ -75,19 +75,23 @@
                         <th
                           data-sortable="true"
                         >
-                          <a href="#" class="datatable-sorter" style="text-align: left;">Jenis_kelamin</a>
+                          <a href="#" class="datatable-sorter" style="text-align: left;">Jenis Kelamin</a>
                         </th>
                         <th
                           data-sortable="true"
                         >
-                          <a href="#" class="datatable-sorter" style="text-align: left;">Tanggal_lahir</a>
+                          <a href="#" class="datatable-sorter" style="text-align: left;">Tanggal Lahir</a>
+                        </th>
+                        <th
+                          data-sortable="true"
+                        >
+                          <a href="#" class="datatable-sorter" style="text-align: left;">Induk</a>
                         </th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr
-                        v-for="stf in staf.slice(0, 5)"
-                        :key="stf.ID_staff"
+                        v-for="(stf,ID_staff)  in staffs.slice(0, 5)" :key="ID_staff"
                       >
                         <td style="text-align: left;">{{ stf.ID_staff }}</td>
                         <td style="text-align: left;">{{ stf.NUPTK }}</td>
@@ -96,6 +100,7 @@
                         <td style="text-align: left;">{{ stf.NIP }}</td>
                         <td style="text-align: left;">{{ stf.Jenis_kelamin }}</td>
                         <td style="text-align: left;">{{ stf.Tanggal_lahir }}</td>
+                        <td style="text-align: left;">{{ stf.Induk }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -118,32 +123,45 @@
 
 <script>
 import axios from "axios";
+import { onMounted, ref } from "vue";
+
 export default {
-  name: "Staf",
-  data() {
-    return {
-      staf: [],
-    };
-  },
-  created() {
-    this.Staf();
-  },
-  methods: {
-    async Staf() {
-      let url = "http://127.0.0.1:8000/api/staf";
-      await axios
-        .get(url)
+  setup() {
+    //reactive state
+    let staffs = ref([]);
+
+    //mounted
+    onMounted(() => {
+      //get API from Laravel Backend
+      axios
+        .get("http://localhost:8000/api/staff")
         .then((response) => {
-          this.staf = response.data.staf;
-          console.log(this.staf);
+          //asign state staffs with response data
+          staffs.value = response.data.data;
         })
         .catch((error) => {
-          console.log(error);
+          console.log(error.response.data);
         });
-    },
-  },
-  mounted() {
-    console.log("Staf List Component Mounted");
+    });
+    //method delete
+    function staffDelete(id) {
+      //delete data staff by ID
+      axios
+        .delete(`http://localhost:8000/api/staff/${id}`)
+        .then(() => {
+          //splice staffs
+          staffs.value.splice(staffs.value.indexOf(id), 1);
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+        });
+    }
+
+    //return
+    return {
+      staffs,
+      staffDelete,
+    };
   },
 };
 </script>

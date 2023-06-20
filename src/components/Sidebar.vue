@@ -20,9 +20,9 @@
           <i class="bi bi-house-up fs-5"></i>
           <span>Ruang</span>
         </a>
-        <a class="nav-link" href="/staf">
+        <a class="nav-link" href="/staff">
           <i class="bi bi-person-video3 fs-5"></i>
-          <span>Staf</span>
+          <span>Staff</span>
         </a>
         <a class="nav-link" href="/siswa">
           <i class="bi bi-person-video2 fs-5"></i>
