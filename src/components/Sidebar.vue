@@ -12,23 +12,23 @@
           <i class="bi bi-building-fill-up fs-5"></i>
           <span>Sekolah</span>
         </router-link>
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="/jurusan">
           <i class="bi bi-vector-pen fs-5"></i>
           <span>Jurusan</span>
         </a>
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="/ruang">
           <i class="bi bi-house-up fs-5"></i>
-          <span>Fasilitas</span>
+          <span>Ruang</span>
         </a>
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="/staf">
           <i class="bi bi-person-video3 fs-5"></i>
           <span>Staf</span>
         </a>
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="/siswa">
           <i class="bi bi-person-video2 fs-5"></i>
           <span>Siswa</span>
         </a>
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="/rombel">
           <i class="bi bi-diagram-3 fs-5"></i>
           <span>Rombel</span>
         </a>
@@ -37,11 +37,11 @@
 
       <li class="nav-heading" style="font-size: 12px"> Data Tracer Study</li>
       <li class="nav-item">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="/dashboard">
           <i class="bi bi-ui-checks-grid fs-4"></i>
           <span>Capaian Survei</span>
         </a>
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="/dashboard">
           <i class="bi bi-graph-up-arrow fs-4"></i>
           <span>Capaian Alumni</span>
         </a>

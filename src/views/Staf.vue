@@ -1,12 +1,12 @@
 <template>
   <main id="main" class="main">
     <div class="pagetitle">
-      <h1 style="text-align: left;">Data Sebaran Sekolah</h1>
+      <h1 style="text-align: left;">Data Sebaran Staf</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
           <li class="breadcrumb-item">Tables</li>
-          <li class="breadcrumb-item active">Sekolah</li>
+          <li class="breadcrumb-item active">Staf</li>
         </ol>
       </nav>
     </div>
@@ -50,46 +50,52 @@
                         <th
                           data-sortable="true"
                         >
-                          <a href="#" class="datatable-sorter" style="text-align: left;">Kode</a>
+                          <a href="#" class="datatable-sorter" style="text-align: left;">ID Staff</a>
                         </th>
                         <th
                           data-sortable="true"
                         >
-                          <a href="#" class="datatable-sorter" style="text-align: left;">Nama Sekolah</a>
+                          <a href="#" class="datatable-sorter" style="text-align: left;">NUPTK</a>
                         </th>
                         <th
                           data-sortable="true"
                         >
-                          <a href="#" class="datatable-sorter" style="text-align: left;">Bentuk Pendidikan</a>
+                          <a href="#" class="datatable-sorter" style="text-align: left;">Nama Lengkap</a>
                         </th>
                         <th
                           data-sortable="true"
                         >
-                          <a href="#" class="datatable-sorter" style="text-align: left;">Status</a>
+                          <a href="#" class="datatable-sorter" style="text-align: left;">NIK</a>
                         </th>
                         <th
                           data-sortable="true"
                         >
-                          <a href="#" class="datatable-sorter" style="text-align: left;">Kode Kecamatan</a>
+                          <a href="#" class="datatable-sorter" style="text-align: left;">NIP</a>
                         </th>
                         <th
                           data-sortable="true"
                         >
-                          <a href="#" class="datatable-sorter" style="text-align: left;">Kode Kabupaten Kota</a>
+                          <a href="#" class="datatable-sorter" style="text-align: left;">Jenis_kelamin</a>
+                        </th>
+                        <th
+                          data-sortable="true"
+                        >
+                          <a href="#" class="datatable-sorter" style="text-align: left;">Tanggal_lahir</a>
                         </th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr
-                        v-for="skl in sekolah.slice(0, 5)"
-                        :key="skl.NPSN"
+                        v-for="stf in staf.slice(0, 5)"
+                        :key="stf.ID_staff"
                       >
-                        <td style="text-align: left;">{{ skl.NPSN }}</td>
-                        <td style="text-align: left;">{{ skl.Nama_SP }}</td>
-                        <td style="text-align: left;">{{ skl.Bentuk_pendidikan }}</td>
-                        <td style="text-align: left;">{{ skl.Status_sekolah }}</td>
-                        <td style="text-align: left;">{{ skl.Kode_kecamatan }}</td>
-                        <td style="text-align: left;">{{ skl.Kode_kabKota }}</td>
+                        <td style="text-align: left;">{{ stf.ID_staff }}</td>
+                        <td style="text-align: left;">{{ stf.NUPTK }}</td>
+                        <td style="text-align: left;">{{ stf.Nama_lengkap }}</td>
+                        <td style="text-align: left;">{{ stf.NIK }}</td>
+                        <td style="text-align: left;">{{ stf.NIP }}</td>
+                        <td style="text-align: left;">{{ stf.Jenis_kelamin }}</td>
+                        <td style="text-align: left;">{{ stf.Tanggal_lahir }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -113,23 +119,23 @@
 <script>
 import axios from "axios";
 export default {
-  name: "Sekolah",
+  name: "Staf",
   data() {
     return {
-      sekolah: [],
+      staf: [],
     };
   },
   created() {
-    this.getSekolah();
+    this.Staf();
   },
   methods: {
-    async getSekolah() {
-      let url = "http://127.0.0.1:8000/api/sekolah";
+    async Staf() {
+      let url = "http://127.0.0.1:8000/api/staf";
       await axios
         .get(url)
         .then((response) => {
-          this.sekolah = response.data.sekolah;
-          console.log(this.sekolah);
+          this.staf = response.data.staf;
+          console.log(this.staf);
         })
         .catch((error) => {
           console.log(error);
@@ -137,7 +143,7 @@ export default {
     },
   },
   mounted() {
-    console.log("Sekolah List Component Mounted");
+    console.log("Staf List Component Mounted");
   },
 };
 </script>
