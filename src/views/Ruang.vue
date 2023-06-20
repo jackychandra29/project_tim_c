@@ -1,12 +1,12 @@
 <template>
   <main id="main" class="main">
     <div class="pagetitle">
-      <h1 style="text-align: left;">Data Sebaran Sekolah</h1>
+      <h1 style="text-align: left;">Data Sebaran Ruang</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
           <li class="breadcrumb-item">Tables</li>
-          <li class="breadcrumb-item active">Sekolah</li>
+          <li class="breadcrumb-item active">Ruang</li>
         </ol>
       </nav>
     </div>
@@ -50,46 +50,52 @@
                         <th
                           data-sortable="true"
                         >
-                          <a href="#" class="datatable-sorter" style="text-align: left;">Kode</a>
+                          <a href="#" class="datatable-sorter" style="text-align: left;">Kode Ruang</a>
                         </th>
                         <th
                           data-sortable="true"
                         >
-                          <a href="#" class="datatable-sorter" style="text-align: left;">Nama Sekolah</a>
+                          <a href="#" class="datatable-sorter" style="text-align: left;">Nama Ruang</a>
                         </th>
                         <th
                           data-sortable="true"
                         >
-                          <a href="#" class="datatable-sorter" style="text-align: left;">Bentuk Pendidikan</a>
+                          <a href="#" class="datatable-sorter" style="text-align: left;">Panjang</a>
                         </th>
                         <th
                           data-sortable="true"
                         >
-                          <a href="#" class="datatable-sorter" style="text-align: left;">Status</a>
+                          <a href="#" class="datatable-sorter" style="text-align: left;">Lebar</a>
                         </th>
                         <th
                           data-sortable="true"
                         >
-                          <a href="#" class="datatable-sorter" style="text-align: left;">Kode Kecamatan</a>
+                          <a href="#" class="datatable-sorter" style="text-align: left;">Lantai</a>
                         </th>
                         <th
                           data-sortable="true"
                         >
-                          <a href="#" class="datatable-sorter" style="text-align: left;">Kode Kabupaten Kota</a>
+                          <a href="#" class="datatable-sorter" style="text-align: left;">Kode Bangunan</a>
+                        </th>
+                        <th
+                          data-sortable="true"
+                        >
+                          <a href="#" class="datatable-sorter" style="text-align: left;">Kode Jenis Ruang</a>
                         </th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr
-                        v-for="skl in sekolah.slice(0, 5)"
-                        :key="skl.NPSN"
+                        v-for="rg in ruang.slice(0, 5)"
+                        :key="rg.Kode_ruang"
                       >
-                        <td style="text-align: left;">{{ skl.NPSN }}</td>
-                        <td style="text-align: left;">{{ skl.Nama_SP }}</td>
-                        <td style="text-align: left;">{{ skl.Bentuk_pendidikan }}</td>
-                        <td style="text-align: left;">{{ skl.Status_sekolah }}</td>
-                        <td style="text-align: left;">{{ skl.Kode_kecamatan }}</td>
-                        <td style="text-align: left;">{{ skl.Kode_kabKota }}</td>
+                        <td style="text-align: left;">{{ rg.Kode_ruang }}</td>
+                        <td style="text-align: left;">{{ rg.Nama_ruang }}</td>
+                        <td style="text-align: left;">{{ rg.Panjang }}</td>
+                        <td style="text-align: left;">{{ rg.Lebar }}</td>
+                        <td style="text-align: left;">{{ rg.Lantai }}</td>
+                        <td style="text-align: left;">{{ rg.Kode_bangunan }}</td>
+                        <td style="text-align: left;">{{ rg.Kode_jenis_ruang }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -113,23 +119,23 @@
 <script>
 import axios from "axios";
 export default {
-  name: "Sekolah",
+  name: "Ruang",
   data() {
     return {
-      sekolah: [],
+      ruang: [],
     };
   },
   created() {
-    this.getSekolah();
+    this.getRuang();
   },
   methods: {
-    async getSekolah() {
-      let url = "http://127.0.0.1:8000/api/sekolah";
+    async getRuang() {
+      let url = "http://127.0.0.1:8000/api/ruang";
       await axios
         .get(url)
         .then((response) => {
-          this.sekolah = response.data.sekolah;
-          console.log(this.sekolah);
+          this.ruang = response.data.ruang;
+          console.log(this.ruang);
         })
         .catch((error) => {
           console.log(error);
@@ -137,7 +143,7 @@ export default {
     },
   },
   mounted() {
-    console.log("Sekolah List Component Mounted");
+    console.log("Ruang List Component Mounted");
   },
 };
 </script>

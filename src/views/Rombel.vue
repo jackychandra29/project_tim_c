@@ -1,12 +1,12 @@
 <template>
   <main id="main" class="main">
     <div class="pagetitle">
-      <h1 style="text-align: left;">Data Sebaran Sekolah</h1>
+      <h1 style="text-align: left;">Data Sebaran Rombel</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
           <li class="breadcrumb-item">Tables</li>
-          <li class="breadcrumb-item active">Sekolah</li>
+          <li class="breadcrumb-item active">Rombel</li>
         </ol>
       </nav>
     </div>
@@ -50,46 +50,64 @@
                         <th
                           data-sortable="true"
                         >
-                          <a href="#" class="datatable-sorter" style="text-align: left;">Kode</a>
+                          <a href="#" class="datatable-sorter" style="text-align: left;">Kode Rombel</a>
                         </th>
                         <th
                           data-sortable="true"
                         >
-                          <a href="#" class="datatable-sorter" style="text-align: left;">Nama Sekolah</a>
+                          <a href="#" class="datatable-sorter" style="text-align: left;">Nama Rombel</a>
                         </th>
                         <th
                           data-sortable="true"
                         >
-                          <a href="#" class="datatable-sorter" style="text-align: left;">Bentuk Pendidikan</a>
+                          <a href="#" class="datatable-sorter" style="text-align: left;">Tingkat</a>
                         </th>
                         <th
                           data-sortable="true"
                         >
-                          <a href="#" class="datatable-sorter" style="text-align: left;">Status</a>
+                          <a href="#" class="datatable-sorter" style="text-align: left;">Semester</a>
                         </th>
                         <th
                           data-sortable="true"
                         >
-                          <a href="#" class="datatable-sorter" style="text-align: left;">Kode Kecamatan</a>
+                          <a href="#" class="datatable-sorter" style="text-align: left;">Tahun Pelajaran</a>
                         </th>
                         <th
                           data-sortable="true"
                         >
-                          <a href="#" class="datatable-sorter" style="text-align: left;">Kode Kabupaten Kota</a>
+                          <a href="#" class="datatable-sorter" style="text-align: left;">Kurikulum</a>
+                        </th>
+                        <th
+                          data-sortable="true"
+                        >
+                          <a href="#" class="datatable-sorter" style="text-align: left;">Kode Ruang</a>
+                        </th>
+                        <th
+                          data-sortable="true"
+                        >
+                          <a href="#" class="datatable-sorter" style="text-align: left;">ID Staff</a>
+                        </th>
+                        <th
+                          data-sortable="true"
+                        >
+                          <a href="#" class="datatable-sorter" style="text-align: left;">Jurusan SP ID</a>
                         </th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr
-                        v-for="skl in sekolah.slice(0, 5)"
-                        :key="skl.NPSN"
+                        v-for="rbl in rombel.slice(0, 5)"
+                        :key="rbl.Kode_rombel"
                       >
-                        <td style="text-align: left;">{{ skl.NPSN }}</td>
-                        <td style="text-align: left;">{{ skl.Nama_SP }}</td>
-                        <td style="text-align: left;">{{ skl.Bentuk_pendidikan }}</td>
-                        <td style="text-align: left;">{{ skl.Status_sekolah }}</td>
-                        <td style="text-align: left;">{{ skl.Kode_kecamatan }}</td>
-                        <td style="text-align: left;">{{ skl.Kode_kabKota }}</td>
+                        <td style="text-align: left;">{{ rbl.Kode_rombel }}</td>
+                        <td style="text-align: left;">{{ rbl.Nama_rombel }}</td>
+                        <td style="text-align: left;">{{ rbl.Tingkat }}</td>
+                        <td style="text-align: left;">{{ rbl.Semester }}</td>
+                        <td style="text-align: left;">{{ rbl.Tahun_pelajaran }}</td>
+                        <td style="text-align: left;">{{ rbl.Kurikulum }}</td>
+                        <td style="text-align: left;">{{ rbl.Kode_ruang }}</td>
+                        <td style="text-align: left;">{{ rbl.ID_staff }}</td>
+                        <td style="text-align: left;">{{ rbl.Jurusan_SP_ID }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -113,23 +131,23 @@
 <script>
 import axios from "axios";
 export default {
-  name: "Sekolah",
+  name: "Rombel",
   data() {
     return {
-      sekolah: [],
+     rombel: [],
     };
   },
   created() {
-    this.getSekolah();
+    this.getRombel();
   },
   methods: {
-    async getSekolah() {
-      let url = "http://127.0.0.1:8000/api/sekolah";
+    async getRombel() {
+      let url = "http://127.0.0.1:8000/api/rombel";
       await axios
         .get(url)
         .then((response) => {
-          this.sekolah = response.data.sekolah;
-          console.log(this.sekolah);
+          this.rombel = response.data.rombel;
+          console.log(this.rombel);
         })
         .catch((error) => {
           console.log(error);
@@ -137,7 +155,7 @@ export default {
     },
   },
   mounted() {
-    console.log("Sekolah List Component Mounted");
+    console.log("Rombel List Component Mounted");
   },
 };
 </script>

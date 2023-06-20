@@ -1,12 +1,12 @@
 <template>
   <main id="main" class="main">
     <div class="pagetitle">
-      <h1 style="text-align: left;">Data Sebaran Sekolah</h1>
+      <h1 style="text-align: left;">Data Sebaran Jurusan</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
           <li class="breadcrumb-item">Tables</li>
-          <li class="breadcrumb-item active">Sekolah</li>
+          <li class="breadcrumb-item active">Jurusan</li>
         </ol>
       </nav>
     </div>
@@ -50,46 +50,22 @@
                         <th
                           data-sortable="true"
                         >
-                          <a href="#" class="datatable-sorter" style="text-align: left;">Kode</a>
+                          <a href="#" class="datatable-sorter" style="text-align: left;">Kode Jurusan</a>
                         </th>
                         <th
                           data-sortable="true"
                         >
-                          <a href="#" class="datatable-sorter" style="text-align: left;">Nama Sekolah</a>
-                        </th>
-                        <th
-                          data-sortable="true"
-                        >
-                          <a href="#" class="datatable-sorter" style="text-align: left;">Bentuk Pendidikan</a>
-                        </th>
-                        <th
-                          data-sortable="true"
-                        >
-                          <a href="#" class="datatable-sorter" style="text-align: left;">Status</a>
-                        </th>
-                        <th
-                          data-sortable="true"
-                        >
-                          <a href="#" class="datatable-sorter" style="text-align: left;">Kode Kecamatan</a>
-                        </th>
-                        <th
-                          data-sortable="true"
-                        >
-                          <a href="#" class="datatable-sorter" style="text-align: left;">Kode Kabupaten Kota</a>
+                          <a href="#" class="datatable-sorter" style="text-align: left;">Nama Jurusan</a>
                         </th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr
-                        v-for="skl in sekolah.slice(0, 5)"
-                        :key="skl.NPSN"
+                        v-for="jrs in jurusan.slice(0, 5)"
+                        :key="jrs.Kode_jurusan"
                       >
-                        <td style="text-align: left;">{{ skl.NPSN }}</td>
-                        <td style="text-align: left;">{{ skl.Nama_SP }}</td>
-                        <td style="text-align: left;">{{ skl.Bentuk_pendidikan }}</td>
-                        <td style="text-align: left;">{{ skl.Status_sekolah }}</td>
-                        <td style="text-align: left;">{{ skl.Kode_kecamatan }}</td>
-                        <td style="text-align: left;">{{ skl.Kode_kabKota }}</td>
+                        <td style="text-align: left;">{{ jrs.Kode_jurusan }}</td>
+                        <td style="text-align: left;">{{ jrs.Nama_jurusan }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -113,23 +89,23 @@
 <script>
 import axios from "axios";
 export default {
-  name: "Sekolah",
+  name: "Jurusan",
   data() {
     return {
-      sekolah: [],
+      jurusan: [],
     };
   },
   created() {
-    this.getSekolah();
+    this.getJurusan();
   },
   methods: {
-    async getSekolah() {
-      let url = "http://127.0.0.1:8000/api/sekolah";
+    async getJurusan() {
+      let url = "http://127.0.0.1:8000/api/jurusan";
       await axios
         .get(url)
         .then((response) => {
-          this.sekolah = response.data.sekolah;
-          console.log(this.sekolah);
+          this.jurusan = response.data.jurusan;
+          console.log(this.jurusan);
         })
         .catch((error) => {
           console.log(error);
@@ -137,7 +113,7 @@ export default {
     },
   },
   mounted() {
-    console.log("Sekolah List Component Mounted");
+    console.log("Jurusan List Component Mounted");
   },
 };
 </script>
