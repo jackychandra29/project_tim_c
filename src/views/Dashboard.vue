@@ -314,17 +314,5 @@
         <!-- End Right side columns -->
       </div>
     </section>
-
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Vertical Bar Chart</h5>
-
-          <!-- Vertical Bar Chart -->
-          <div id="verticalBarChart" style="min-height: 400px;" class="echart"></div>
-          <!-- JS DIHAPUS -->
-          <!-- End Vertical Bar Chart -->
-
-        </div>
-    </div>
   </main>
 </template>

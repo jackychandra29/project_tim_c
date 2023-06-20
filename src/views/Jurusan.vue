@@ -61,8 +61,7 @@
                     </thead>
                     <tbody>
                       <tr
-                        v-for="jrs in jurusan.slice(0, 5)"
-                        :key="jrs.Kode_jurusan"
+                        v-for="(jrs, Kode_jurusan) in jurusans.slice(0, 5)" :key="Kode_jurusan"
                       >
                         <td style="text-align: left;">{{ jrs.Kode_jurusan }}</td>
                         <td style="text-align: left;">{{ jrs.Nama_jurusan }}</td>
@@ -88,32 +87,45 @@
 
 <script>
 import axios from "axios";
+import { onMounted, ref } from "vue";
+
 export default {
-  name: "Jurusan",
-  data() {
-    return {
-      jurusan: [],
-    };
-  },
-  created() {
-    this.getJurusan();
-  },
-  methods: {
-    async getJurusan() {
-      let url = "http://127.0.0.1:8000/api/jurusan";
-      await axios
-        .get(url)
+  setup() {
+    //reactive state
+    let jurusans = ref([]);
+
+    //mounted
+    onMounted(() => {
+      //get API from Laravel Backend
+      axios
+        .get("http://localhost:8000/api/jurusan")
         .then((response) => {
-          this.jurusan = response.data.jurusan;
-          console.log(this.jurusan);
+          //asign state jurusans with response data
+          jurusans.value = response.data.data;
         })
         .catch((error) => {
-          console.log(error);
+          console.log(error.response.data);
         });
-    },
-  },
-  mounted() {
-    console.log("Jurusan List Component Mounted");
+    });
+    //method delete
+    function jurusanDelete(id) {
+      //delete data jurusan by ID
+      axios
+        .delete(`http://localhost:8000/api/jurusan/${id}`)
+        .then(() => {
+          //splice jurusans
+          jurusans.value.splice(jurusans.value.indexOf(id), 1);
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+        });
+    }
+
+    //return
+    return {
+      jurusans,
+      jurusanDelete,
+    };
   },
 };
 </script>

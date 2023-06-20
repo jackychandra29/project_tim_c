@@ -86,8 +86,7 @@
                     </thead>
                     <tbody>
                       <tr
-                        v-for="rg in ruang.slice(0, 5)"
-                        :key="rg.Kode_ruang"
+                        v-for="(rg, Kode_ruang) in ruangs.slice(0, 5)" :key="Kode_ruang"
                       >
                         <td style="text-align: left;">{{ rg.Kode_ruang }}</td>
                         <td style="text-align: left;">{{ rg.Nama_ruang }}</td>
@@ -118,32 +117,45 @@
 
 <script>
 import axios from "axios";
+import { onMounted, ref } from "vue";
+
 export default {
-  name: "Ruang",
-  data() {
-    return {
-      ruang: [],
-    };
-  },
-  created() {
-    this.getRuang();
-  },
-  methods: {
-    async getRuang() {
-      let url = "http://127.0.0.1:8000/api/ruang";
-      await axios
-        .get(url)
+  setup() {
+    //reactive state
+    let ruangs = ref([]);
+
+    //mounted
+    onMounted(() => {
+      //get API from Laravel Backend
+      axios
+        .get("http://localhost:8000/api/ruang")
         .then((response) => {
-          this.ruang = response.data.ruang;
-          console.log(this.ruang);
+          //asign state ruangs with response data
+          ruangs.value = response.data.data;
         })
         .catch((error) => {
-          console.log(error);
+          console.log(error.response.data);
         });
-    },
-  },
-  mounted() {
-    console.log("Ruang List Component Mounted");
+    });
+    //method delete
+    function ruangDelete(id) {
+      //delete data ruang by ID
+      axios
+        .delete(`http://localhost:8000/api/ruang/${id}`)
+        .then(() => {
+          //splice ruangs
+          ruangs.value.splice(ruangs.value.indexOf(id), 1);
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+        });
+    }
+
+    //return
+    return {
+      ruangs,
+      ruangDelete,
+    };
   },
 };
 </script>

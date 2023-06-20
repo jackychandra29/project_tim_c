@@ -60,6 +60,11 @@
                         <th
                           data-sortable="true"
                         >
+                          <a href="#" class="datatable-sorter" style="text-align: left;">NIK</a>
+                        </th>
+                        <th
+                          data-sortable="true"
+                        >
                           <a href="#" class="datatable-sorter" style="text-align: left;">Nama Lengkap</a>
                         </th>
                         <th
@@ -86,8 +91,7 @@
                     </thead>
                     <tbody>
                       <tr
-                        v-for="ssw in siswa.slice(0, 5)"
-                        :key="ssw.ID"
+                        v-for="(ssw, ID) in siswas.slice(0, 5)" :key="ID"
                       >
                         <td style="text-align: left;">{{ ssw.ID }}</td>
                         <td style="text-align: left;">{{ ssw.NISN }}</td>
@@ -119,32 +123,45 @@
 
 <script>
 import axios from "axios";
+import { onMounted, ref } from "vue";
+
 export default {
-  name: "Siswa",
-  data() {
-    return {
-      siswa: [],
-    };
-  },
-  created() {
-    this.getSiswa();
-  },
-  methods: {
-    async getSiswa() {
-      let url = "http://127.0.0.1:8000/api/siswa";
-      await axios
-        .get(url)
+  setup() {
+    //reactive state
+    let siswas = ref([]);
+
+    //mounted
+    onMounted(() => {
+      //get API from Laravel Backend
+      axios
+        .get("http://localhost:8000/api/siswa")
         .then((response) => {
-          this.siswa = response.data.siswa;
-          console.log(this.siswa);
+          //asign state siswas with response data
+          siswas.value = response.data.data;
         })
         .catch((error) => {
-          console.log(error);
+          console.log(error.response.data);
         });
-    },
-  },
-  mounted() {
-    console.log("Siswa List Component Mounted");
+    });
+    //method delete
+    function siswaDelete(id) {
+      //delete data siswa by ID
+      axios
+        .delete(`http://localhost:8000/api/siswa/${id}`)
+        .then(() => {
+          //splice siswas
+          siswas.value.splice(siswas.value.indexOf(id), 1);
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+        });
+    }
+
+    //return
+    return {
+      siswas,
+      siswaDelete,
+    };
   },
 };
 </script>
