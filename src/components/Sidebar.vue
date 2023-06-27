@@ -34,18 +34,6 @@
         </a>
       </li>
       <!-- End Dashboard Nav -->
-
-      <li class="nav-heading" style="font-size: 12px"> Data Tracer Study</li>
-      <li class="nav-item">
-        <a class="nav-link" href="/dashboard">
-          <i class="bi bi-ui-checks-grid fs-4"></i>
-          <span>Capaian Survei</span>
-        </a>
-        <a class="nav-link" href="/dashboard">
-          <i class="bi bi-graph-up-arrow fs-4"></i>
-          <span>Capaian Alumni</span>
-        </a>
-      </li>
     </ul>
   </aside>
 </template>
