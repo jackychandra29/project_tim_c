@@ -1,19 +1,13 @@
 <template>
-<!-- ======= Header ======= -->
-  <Header></Header>
-<!-- End Header -->
+  <!-- <Header></Header> -->
 
-<!-- ======= Sidebar ======= -->
-  <Sidebar></Sidebar>
-<!-- End Sidebar-->
+  <!-- <Sidebar></Sidebar> -->
 
 <!-- Main -->
 <router-view></router-view>
 <!-- End #main -->
 
-<!-- ======= Footer ======= -->
-  <Footer></Footer>
-<!-- End Footer -->
+  <!-- <Footer></Footer> -->
 
     <a
       href="#"
@@ -23,16 +17,16 @@
 </template>
 
 <script>
-import Header from './components/Header.vue'
-import Sidebar from './components/Sidebar.vue'
-import Footer from './components/Footer.vue'
+// import Header from './components/Header.vue'
+// import Sidebar from './components/Sidebar.vue'
+// import Footer from './components/Footer.vue'
 
 export default {
   name: 'App',
   components: {
-    Header,
-    Sidebar,
-    Footer,
+    // Header,
+    // Sidebar,
+    // Footer,
   },
 };
 </script>
