@@ -1,4 +1,6 @@
 <template>
+  <Header></Header>
+  <Sidebar></Sidebar>
   <main id="main" class="main">
     <div class="pagetitle">
       <h1 style="text-align: left;">Data Sebaran Sekolah</h1>
@@ -107,13 +109,23 @@
       </div>
     </section>
   </main>
+  <Footer></Footer>
 </template>
 
 <script>
 import axios from "axios";
 import { onMounted, ref } from "vue";
 
+import Header from '../components/Header.vue'
+import Sidebar from '../components/Sidebar.vue'
+import Footer from '../components/Footer.vue'
+
 export default {
+  components: {
+    Header,
+    Sidebar,
+    Footer,
+  },
   setup() {
     //reactive state
     let sekolahs = ref([]);
