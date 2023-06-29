@@ -7,6 +7,7 @@ import Ruang from '../views/Ruang';
 import Staff from '../views/Staff';
 import Siswa from '../views/Siswa';
 import Rombel from '../views/Rombel';
+import AdminSMK from '../views/AdminSMK';
 import Register from '../components/Register';
 import Login from '../components/Login';
 
@@ -25,6 +26,11 @@ const routes = [
         name: 'Register',
         path: '/register',
         component: Register
+    },
+    {
+        name: 'AdminSMK',
+        path: '/adminSMK',
+        component: AdminSMK
     },
     {
         name: 'Sekolah',

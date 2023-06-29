@@ -88,7 +88,7 @@
                         <td style="text-align: left;">{{ skl.NPSN }}</td>
                         <td style="text-align: left;">{{ skl.Nama_SP }}</td>
                         <td style="text-align: left;">{{ skl.Bentuk_pendidikan }}</td>
-                        <td style="text-align: left;">{{ skl.Status_skl }}</td>
+                        <td style="text-align: left;">{{ skl.Status_sekolah }}</td>
                         <td style="text-align: left;">{{ skl.Kode_kecamatan }}</td>
                         <td style="text-align: left;">{{ skl.Kode_kabKota }}</td>
                       </tr>
