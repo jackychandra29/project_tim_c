@@ -25,6 +25,14 @@
                   <form class="row g-3 needs-validation" @submit.prevent="saveData">
 
                     <div class="col-12">
+                      <label for="yourUsername" class="form-label">NPSN</label>
+                      <div class="input-group has-validation">
+                        <input type="text" v-model="user.npsn" name="npsn" class="form-control" id="npsn" required>
+                        <div class="invalid-feedback">Please enter NSPSN.</div>
+                      </div>
+                    </div>
+
+                    <div class="col-12">
                       <label for="yourUsername" class="form-label">Name</label>
                       <div class="input-group has-validation">
                         <input type="text" v-model="user.name" name="name" class="form-control" id="name" required>
@@ -91,7 +99,10 @@ export default{
             user:{
                 name:'',
                 email:'',
-                password:''
+                password:'',
+                npsn: '',
+                role:'',
+                status: ''
             }
         }
     },
@@ -109,6 +120,7 @@ export default{
                     console.log(data);
                     try{
                         alert("saved");
+                        this.$router.push({name: 'Login'})
                     } catch (err){
                         alert("failed");
                     }
