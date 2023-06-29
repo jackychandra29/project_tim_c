@@ -10,7 +10,7 @@ import Rombel from '../views/Rombel';
 import AdminSMK from '../views/AdminSMK';
 import Register from '../components/Register';
 import Login from '../components/Login';
-
+import EditSekolah from '../views/EditSekolah.vue';
 const routes = [
     {
         name: 'Dashboard',
@@ -62,11 +62,16 @@ const routes = [
         path: '/rombel',
         component: Rombel
     },
+  {
+    name: 'sekolah.edit',
+    path: '/edit/:NPSN',
+    component: EditSekolah,
+  },
 ];
 
 const router = createRouter({
-    history: createWebHistory(),
-    routes,
+  history: createWebHistory(),
+  routes,
 });
 
 export default router;

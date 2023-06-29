@@ -6,9 +6,9 @@
       <h1 style="text-align: left;">Data Sebaran Siswa</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item">Tables</li>
-          <li class="breadcrumb-item active">Siswa</li>
+          <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/siswa">Siswa</a></li>
+
         </ol>
       </nav>
     </div>
@@ -89,6 +89,11 @@
                         >
                           <a href="#" class="datatable-sorter" style="text-align: left;">NPSN</a>
                         </th>
+                        <th
+                          data-sortable="true"
+                        >
+                          <a href="#">Aksi</a>
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -103,6 +108,8 @@
                         <td style="text-align: left;">{{ ssw.Tanggal_lahir }}</td>
                         <td style="text-align: left;">{{ ssw.Nama_ibuKandung }}</td>
                         <td style="text-align: left;">{{ ssw.NPSN }}</td>
+                        <td><button type="button" class="btn btn-warning rounded-pill">Edit</button></td>
+
                       </tr>
                     </tbody>
                   </table>

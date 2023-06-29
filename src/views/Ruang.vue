@@ -6,9 +6,9 @@
       <h1 style="text-align: left;">Data Sebaran Ruang</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item">Tables</li>
-          <li class="breadcrumb-item active">Ruang</li>
+          <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/ruang">Ruang</a></li>
+
         </ol>
       </nav>
     </div>
@@ -84,6 +84,11 @@
                         >
                           <a href="#" class="datatable-sorter" style="text-align: left;">Kode Jenis Ruang</a>
                         </th>
+                        <th
+                          data-sortable="true"
+                        >
+                          <a href="#">Aksi</a>
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -97,6 +102,8 @@
                         <td style="text-align: left;">{{ rg.Lantai }}</td>
                         <td style="text-align: left;">{{ rg.Kode_bangunan }}</td>
                         <td style="text-align: left;">{{ rg.Kode_jenis_ruang }}</td>
+                        <td><button type="button" class="btn btn-warning rounded-pill">Edit</button></td>
+
                       </tr>
                     </tbody>
                   </table>

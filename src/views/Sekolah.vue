@@ -6,9 +6,9 @@
       <h1 style="text-align: left;">Data Sebaran Sekolah</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item">Tables</li>
-          <li class="breadcrumb-item active">Sekolah</li>
+          <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+          <li class="breadcrumb-item"><a href="/sekolah">Sekolah</a></li>
+
         </ol>
       </nav>
     </div>
@@ -20,9 +20,7 @@
           <div class="card">
             <div class="card-body">
               <!-- Table with stripped rows -->
-              <div
-                class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns"
-              >
+              <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
                 <div class="datatable-top">
                   <div class="datatable-dropdown">
                     <label>
@@ -37,60 +35,47 @@
                     </label>
                   </div>
                   <div class="datatable-search">
-                    <input
-                      class="datatable-input"
-                      placeholder="Search..."
-                      type="search"
-                      title="Search within table"
-                    />
+                    <input class="datatable-input" placeholder="Search..." type="search" title="Search within table" />
                   </div>
                 </div>
                 <div class="datatable-container">
                   <table class="table datatable datatable-table">
                     <thead>
                       <tr>
-                        <th
-                          data-sortable="true"
-                        >
+                        <th data-sortable="true">
                           <a href="#" class="datatable-sorter" style="text-align: left;">Kode</a>
                         </th>
-                        <th
-                          data-sortable="true"
-                        >
+                        <th data-sortable="true">
                           <a href="#" class="datatable-sorter" style="text-align: left;">Nama Sekolah</a>
                         </th>
-                        <th
-                          data-sortable="true"
-                        >
+                        <th data-sortable="true">
                           <a href="#" class="datatable-sorter" style="text-align: left;">Bentuk Pendidikan</a>
                         </th>
-                        <th
-                          data-sortable="true"
-                        >
+                        <th data-sortable="true">
                           <a href="#" class="datatable-sorter" style="text-align: left;">Status</a>
                         </th>
-                        <th
-                          data-sortable="true"
-                        >
+                        <th data-sortable="true">
                           <a href="#" class="datatable-sorter" style="text-align: left;">Kode Kecamatan</a>
                         </th>
-                        <th
-                          data-sortable="true"
-                        >
+                        <th data-sortable="true">
                           <a href="#" class="datatable-sorter" style="text-align: left;">Kode Kabupaten Kota</a>
+                        </th>
+                        <th data-sortable="true">
+                          <a href="#">Aksi</a>
                         </th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr
-                        v-for="(skl, NPSN) in sekolahs.slice(0, 5)" :key="NPSN"
-                      >
-                        <td style="text-align: left;">{{ skl.NPSN }}</td>
-                        <td style="text-align: left;">{{ skl.Nama_SP }}</td>
-                        <td style="text-align: left;">{{ skl.Bentuk_pendidikan }}</td>
-                        <td style="text-align: left;">{{ skl.Status_sekolah }}</td>
-                        <td style="text-align: left;">{{ skl.Kode_kecamatan }}</td>
-                        <td style="text-align: left;">{{ skl.Kode_kabKota }}</td>
+                      <tr v-for="(sekolah, NPSN) in sekolahs.slice(0, 5)" :key="NPSN">
+                        <td style="text-align: left;">{{ sekolah.NPSN }}</td>
+                        <td style="text-align: left;">{{ sekolah.Nama_SP }}</td>
+                        <td style="text-align: left;">{{ sekolah.Bentuk_pendidikan }}</td>
+                        <td style="text-align: left;">{{ sekolah.Status_sekolah }}</td>
+                        <td style="text-align: left;">{{ sekolah.Kode_kecamatan }}</td>
+                        <td style="text-align: left;">{{ sekolah.Kode_kabKota }}</td>
+                        <td>
+                          <router-link :to="`/edit/${sekolah.NPSN}`" class="btn btn-primary">Edit</router-link>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -113,55 +98,58 @@
 </template>
 
 <script>
-import axios from "axios";
-import { onMounted, ref } from "vue";
+  import axios from "axios";
+  import {
+    onMounted,
+    ref
+  } from "vue";
 
-import Header from '../components/Header.vue'
-import Sidebar from '../components/Sidebar.vue'
-import Footer from '../components/Footer.vue'
+  import Header from '../components/Header.vue'
+  import Sidebar from '../components/Sidebar.vue'
+  import Footer from '../components/Footer.vue'
 
-export default {
-  components: {
-    Header,
-    Sidebar,
-    Footer,
-  },
-  setup() {
-    //reactive state
-    let sekolahs = ref([]);
+  export default {
+    components: {
+      Header,
+      Sidebar,
+      Footer,
+    },
+    setup() {
+      //reactive state
+      let sekolahs = ref([]);
 
-    //mounted
-    onMounted(() => {
-      //get API from Laravel Backend
-      axios
-        .get("http://localhost:8000/api/sekolah")
-        .then((response) => {
-          //asign state sekolahs with response data
-          sekolahs.value = response.data.data;
-        })
-        .catch((error) => {
-          console.log(error.response.data);
-        });
-    });
-    //method delete
-    function sekolahDelete(id) {
-      //delete data sekolah by ID
-      axios
-        .delete(`http://localhost:8000/api/sekolah/${id}`)
-        .then(() => {
-          //splice sekolahs
-          sekolahs.value.splice(sekolahs.value.indexOf(id), 1);
-        })
-        .catch((error) => {
-          console.log(error.response.data);
-        });
-    }
+      //mounted
+      onMounted(() => {
+        //get API from Laravel Backend
+        axios
+          .get("http://localhost:8000/api/sekolah")
+          .then((response) => {
+            //asign state sekolahs with response data
+            sekolahs.value = response.data.data;
+          })
+          .catch((error) => {
+            console.log(error.response.data);
+          });
+      });
+      //method delete
+      // function sekolahDelete(id) {
+      //   //delete data sekolah by ID
+      //   axios
+      //     .delete(`http://localhost:8000/api/sekolah/${id}`)
+      //     .then(() => {
+      //       //splice sekolahs
+      //       sekolahs.value.splice(sekolahs.value.indexOf(id), 1);
+      //     })
+      //     .catch((error) => {
+      //       console.log(error.response.data);
+      //     });
+      // }
 
-    //return
-    return {
-      sekolahs,
-      sekolahDelete,
-    };
-  },
-};
+      //return
+      return {
+        sekolahs,
+        // sekolahDelete,
+      };
+    },
+  };
 </script>

@@ -6,9 +6,9 @@
       <h1 style="text-align: left;">Data Sebaran Rombel</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item">Tables</li>
-          <li class="breadcrumb-item active">Rombel</li>
+          <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/rombel">Rombel</a></li>
+
         </ol>
       </nav>
     </div>
@@ -94,6 +94,11 @@
                         >
                           <a href="#" class="datatable-sorter" style="text-align: left;">Jurusan SP ID</a>
                         </th>
+                        <th
+                          data-sortable="true"
+                        >
+                          <a href="#">Aksi</a>
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -109,6 +114,8 @@
                         <td style="text-align: left;">{{ rbl.Kode_ruang }}</td>
                         <td style="text-align: left;">{{ rbl.ID_staff }}</td>
                         <td style="text-align: left;">{{ rbl.Jurusan_SP_ID }}</td>
+                        <td><button type="button" class="btn btn-warning rounded-pill">Edit</button></td>
+
                       </tr>
                     </tbody>
                   </table>

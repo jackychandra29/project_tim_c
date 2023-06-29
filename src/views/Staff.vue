@@ -6,9 +6,8 @@
       <h1 style="text-align: left;">Data Sebaran Staff</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item">Tables</li>
-          <li class="breadcrumb-item active">Staff</li>
+          <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+          <li class="breadcrumb-item"><a href="/staff">Staff</a></li>
         </ol>
       </nav>
     </div>
@@ -89,6 +88,11 @@
                         >
                           <a href="#" class="datatable-sorter" style="text-align: left;">Induk</a>
                         </th>
+                        <th
+                          data-sortable="true"
+                        >
+                          <a href="#">Aksi</a>
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -103,6 +107,7 @@
                         <td style="text-align: left;">{{ stf.Jenis_kelamin }}</td>
                         <td style="text-align: left;">{{ stf.Tanggal_lahir }}</td>
                         <td style="text-align: left;">{{ stf.Induk }}</td>
+                        <td><button type="button" class="btn btn-warning rounded-pill">Edit</button></td>
                       </tr>
                     </tbody>
                   </table>
