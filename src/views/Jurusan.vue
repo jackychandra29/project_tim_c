@@ -6,9 +6,9 @@
       <h1 style="text-align: left;">Data Sebaran Jurusan</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item">Tables</li>
-          <li class="breadcrumb-item active">Jurusan</li>
+          <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+          <li class="breadcrumb-item"><a href="/jurusan">Jurusan</a></li>
+
         </ol>
       </nav>
     </div>
@@ -59,6 +59,11 @@
                         >
                           <a href="#" class="datatable-sorter" style="text-align: left;">Nama Jurusan</a>
                         </th>
+                        <th
+                          data-sortable="true"
+                        >
+                          <a href="#">Aksi</a>
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -67,6 +72,8 @@
                       >
                         <td style="text-align: left;">{{ jrs.Kode_jurusan }}</td>
                         <td style="text-align: left;">{{ jrs.Nama_jurusan }}</td>
+                        <td><button type="button" class="btn btn-warning rounded-pill">Edit</button></td>
+
                       </tr>
                     </tbody>
                   </table>
