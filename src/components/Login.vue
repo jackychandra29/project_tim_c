@@ -1,5 +1,5 @@
 <template>
-    <main>
+  <main>
     <div class="container">
 
       <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
@@ -35,19 +35,20 @@
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Password</label>
-                      <input type="password" v-model="user.password" name="password" class="form-control" id="password" required>
+                      <input type="password" v-model="user.password" name="password" class="form-control" id="password"
+                        required>
                       <div class="invalid-feedback">Please enter your password!</div>
                     </div>
 
-                    
+
                     <div class="col-12">
                       <button class="btn btn-primary w-100" type="submit">Login</button>
                     </div>
 
                     <div class="col-12">
-                     <a class="nav-link" href="/register"><u>Register</u></a>
+                      <a class="nav-link" href="/register"><u>Register</u></a>
                     </div>
-                    
+
                   </form>
 
                 </div>
@@ -73,44 +74,48 @@
 <script>
 // import Vue from 'vue';
 import axios from 'axios';
+import { useStore } from 'vuex'; 
 
 // Vue.use(axios)
-export default{
-    name: 'Login',
-    data(){
-        return{
-            result: {},
-            user:{
-                email:'',
-                password:''
-            }
-        }
-    },
-    created(){
-
-    },
-    mounted(){
-        console.log("mounted() called...");
-    },
-    methods:{
-        LoginData(){
-            axios.post("http://127.0.0.1:8000/api/login", this.user)
-            .then(
-                ({data})=>{
-                    console.log(data);
-                    try{
-                        if(data.status === true){
-                            alert("Login Successfully");
-                            this.$router.push({name: 'Dashboard'})
-                        }else{
-                            alert("Login Failed")
-                        }
-                    } catch (err){
-                        alert("failed");
-                    }
-                }
-            )
-        }
+export default {
+  name: 'Login',
+  data() {
+    return {
+      result: {},
+      user: {
+        email: '',
+        password: ''
+      }
     }
+  },
+  mounted() {
+    console.log("mounted() called...");
+  },
+  created() {
+    const store = useStore(); // Menggunakan useStore() untuk mendapatkan instance store
+    store.commit('setLoggedIn', false);
+    store.commit('setUser', null);
+  },
+  methods: {
+    LoginData() {
+      axios.post("http://127.0.0.1:8000/api/login", this.user)
+        .then(({ data }) => {
+          console.log(data);
+          try {
+            if (data.status === true) {
+              alert("Login Successfully");
+              this.$store.commit('setLoggedIn', true);
+              this.$store.commit('setUser', data.data);
+              this.$router.push({ name: 'Dashboard' });
+              // console.log(this.$store.getters.user);
+            } else {
+              alert("Login Failed");
+            }
+          } catch (err) {
+            alert("Failed");
+          }
+        });
+    },
+  },
 }
 </script>

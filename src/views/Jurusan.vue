@@ -97,7 +97,9 @@
 
 <script>
 import axios from "axios";
-import { onMounted, ref } from "vue";
+import { onMounted, ref , computed} from "vue";
+import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 import Header from '../components/Header.vue'
 import Sidebar from '../components/Sidebar.vue'
 import Footer from '../components/Footer.vue'
@@ -112,6 +114,15 @@ export default {
     //reactive state
     let jurusans = ref([]);
 
+    let user = ref([]);
+
+    const store = useStore(); // Menggunakan useStore() untuk mendapatkan instance store
+    const router = useRouter();
+
+    const loggedIn = computed(() => {
+      return store.state.loggedIn;
+    });
+
     //mounted
     onMounted(() => {
       //get API from Laravel Backend
@@ -124,6 +135,15 @@ export default {
         .catch((error) => {
           console.log(error.response.data);
         });
+
+        if (loggedIn.value) {
+        // Tidak perlu melakukan axios.get untuk mengambil data pengguna karena data sudah ada di Vuex
+        user.value = store.getters.user;
+        console.log(user.value);
+      } else {
+        router.push({ name: 'Login' });
+      }
+        
     });
     //method delete
     function jurusanDelete(id) {
@@ -143,6 +163,7 @@ export default {
     return {
       jurusans,
       jurusanDelete,
+      user,
     };
   },
 };

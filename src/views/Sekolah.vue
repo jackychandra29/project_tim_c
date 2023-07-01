@@ -126,6 +126,7 @@
           .then((response) => {
             //asign state sekolahs with response data
             sekolahs.value = response.data.data;
+            console.log(sekolahs.value)
           })
           .catch((error) => {
             console.log(error.response.data);
