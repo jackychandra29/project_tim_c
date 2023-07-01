@@ -3,12 +3,11 @@
     <Sidebar></Sidebar>
     <main id="main" class="main">
       <div class="pagetitle">
-        <h1 style="text-align: left;">Data Sebaran Jurusan</h1>
+        <h1 style="text-align: left;">Data Sebaran Staff</h1>
         <nav>
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
-            <li class="breadcrumb-item"><a href="/jurusan">Jurusan</a></li>
-  
+            <li class="breadcrumb-item"><a href="/staff">Staff</a></li>
           </ol>
         </nav>
       </div>
@@ -52,12 +51,42 @@
                           <th
                             data-sortable="true"
                           >
-                            <a href="#" class="datatable-sorter" style="text-align: left;">Kode Jurusan</a>
+                            <a href="#" class="datatable-sorter" style="text-align: left;">ID Staff</a>
                           </th>
                           <th
                             data-sortable="true"
                           >
-                            <a href="#" class="datatable-sorter" style="text-align: left;">Nama Jurusan</a>
+                            <a href="#" class="datatable-sorter" style="text-align: left;">NUPTK</a>
+                          </th>
+                          <th
+                            data-sortable="true"
+                          >
+                            <a href="#" class="datatable-sorter" style="text-align: left;">Nama Lengkap</a>
+                          </th>
+                          <th
+                            data-sortable="true"
+                          >
+                            <a href="#" class="datatable-sorter" style="text-align: left;">NIK</a>
+                          </th>
+                          <th
+                            data-sortable="true"
+                          >
+                            <a href="#" class="datatable-sorter" style="text-align: left;">NIP</a>
+                          </th>
+                          <th
+                            data-sortable="true"
+                          >
+                            <a href="#" class="datatable-sorter" style="text-align: left;">Jenis Kelamin</a>
+                          </th>
+                          <th
+                            data-sortable="true"
+                          >
+                            <a href="#" class="datatable-sorter" style="text-align: left;">Tanggal Lahir</a>
+                          </th>
+                          <th
+                            data-sortable="true"
+                          >
+                            <a href="#" class="datatable-sorter" style="text-align: left;">Induk</a>
                           </th>
                           <th
                             data-sortable="true"
@@ -68,12 +97,17 @@
                       </thead>
                       <tbody>
                         <tr
-                          v-for="(jrs, Kode_jurusan) in jurusans" :key="Kode_jurusan"
+                          v-for="(stf,ID_staff)  in staffs.slice(0, 5)" :key="ID_staff"
                         >
-                          <td style="text-align: left;">{{ jrs.Kode_jurusan }}</td>
-                          <td style="text-align: left;">{{ jrs.Nama_jurusan }}</td>
+                          <td style="text-align: left;">{{ stf.ID_staff }}</td>
+                          <td style="text-align: left;">{{ stf.NUPTK }}</td>
+                          <td style="text-align: left;">{{ stf.Nama_lengkap }}</td>
+                          <td style="text-align: left;">{{ stf.NIK }}</td>
+                          <td style="text-align: left;">{{ stf.NIP }}</td>
+                          <td style="text-align: left;">{{ stf.Jenis_kelamin }}</td>
+                          <td style="text-align: left;">{{ stf.Tanggal_lahir }}</td>
+                          <td style="text-align: left;">{{ stf.Induk }}</td>
                           <td><button type="button" class="btn btn-warning rounded-pill">Edit</button></td>
-  
                         </tr>
                       </tbody>
                     </table>
@@ -97,7 +131,7 @@
   
   <script>
   import axios from "axios";
-  import { onMounted, ref , computed} from "vue";
+  import { onMounted, ref, computed } from "vue";
   import { useRouter } from 'vue-router';
   import { useStore } from 'vuex';
   import Header from '../components/Header.vue'
@@ -112,8 +146,8 @@
     },
     setup() {
       //reactive state
-      let jurusans = ref([]);
-  
+      let staffs = ref([]);
+
       let user = ref([]);
   
       const store = useStore(); // Menggunakan useStore() untuk mendapatkan instance store
@@ -127,10 +161,10 @@
       onMounted(() => {
         //get API from Laravel Backend
         axios
-          .get("http://localhost:8000/api/jurusan")
+          .get("http://localhost:8000/api/staff")
           .then((response) => {
-            //asign state jurusans with response data
-            jurusans.value = response.data.data;
+            //asign state staffs with response data
+            staffs.value = response.data.data;
           })
           .catch((error) => {
             console.log(error.response.data);
@@ -145,11 +179,24 @@
         }
           
       });
-      
+      //method delete
+    //   function staffDelete(id) {
+    //     //delete data staff by ID
+    //     axios
+    //       .delete(`http://localhost:8000/api/staff/${id}`)
+    //       .then(() => {
+    //         //splice staffs
+    //         staffs.value.splice(staffs.value.indexOf(id), 1);
+    //       })
+    //       .catch((error) => {
+    //         console.log(error.response.data);
+    //       });
+    //   }
   
       //return
       return {
-        jurusans,
+        staffs,
+        // staffDelete,
         user,
       };
     },

@@ -41,10 +41,10 @@
 
       <li class="nav-heading" style="font-size: 12px" v-if="user.role===1">Data Sekolah</li>
       <li class="nav-item" v-if="user.role===1">
-        <router-link class="nav-link" to="/sekolahSMK">
+        <!-- <router-link class="nav-link" to="/sekolahSMK">
           <i class="bi bi-building-fill-up fs-5"></i>
           <span>Profil Sekolah</span>
-        </router-link>
+        </router-link> -->
         <a class="nav-link" href="/jurusanSMK">
           <i class="bi bi-vector-pen fs-5"></i>
           <span>Jurusan</span>
