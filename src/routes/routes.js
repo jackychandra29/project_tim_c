@@ -11,6 +11,8 @@ import AdminSMK from '../views/AdminSMK';
 import Register from '../components/Register';
 import Login from '../components/Login';
 import EditSekolah from '../views/EditSekolah.vue';
+import JurusanSMK from '../views/jurusanSMK';
+import SiswaSMK from '../views/siswaSMK';
 
 const routes = [
     {
@@ -67,6 +69,16 @@ const routes = [
     name: 'sekolah.edit',
     path: '/edit/:NPSN',
     component: EditSekolah,
+  },
+  {
+    name: 'jurusanSMK',
+    path: '/jurusanSMK',
+    component: JurusanSMK,
+  },
+  {
+    name: 'siswaSMK',
+    path: '/siswaSMK',
+    component: SiswaSMK,
   },
 ];
 

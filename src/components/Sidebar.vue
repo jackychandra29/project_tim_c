@@ -41,27 +41,27 @@
 
       <li class="nav-heading" style="font-size: 12px" v-if="user.role===1">Data Sekolah</li>
       <li class="nav-item" v-if="user.role===1">
-        <router-link class="nav-link" to="/sekolah">
+        <router-link class="nav-link" to="/sekolahSMK">
           <i class="bi bi-building-fill-up fs-5"></i>
           <span>Profil Sekolah</span>
         </router-link>
-        <a class="nav-link" href="/jurusan">
+        <a class="nav-link" href="/jurusanSMK">
           <i class="bi bi-vector-pen fs-5"></i>
           <span>Jurusan</span>
         </a>
-        <a class="nav-link" href="/ruang">
+        <a class="nav-link" href="/ruangSMK">
           <i class="bi bi-house-up fs-5"></i>
           <span>Ruang</span>
         </a>
-        <a class="nav-link" href="/staff">
+        <a class="nav-link" href="/staffSMK">
           <i class="bi bi-person-video3 fs-5"></i>
           <span>Staff</span>
         </a>
-        <a class="nav-link" href="/siswa">
+        <a class="nav-link" href="/siswaSMK">
           <i class="bi bi-person-video2 fs-5"></i>
           <span>Siswa</span>
         </a>
-        <a class="nav-link" href="/rombel">
+        <a class="nav-link" href="/rombelSMK">
           <i class="bi bi-diagram-3 fs-5"></i>
           <span>Rombel</span>
         </a>
