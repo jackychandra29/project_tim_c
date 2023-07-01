@@ -26,7 +26,7 @@
                 <div class="datatable-top">
                   <div class="datatable-dropdown">
                     <label>
-                      <select class="datatable-selector">
+                      <select class="datatable-selector" v-model="selectedOption" >
                         <option value="5">5</option>
                         <option value="10" selected="">10</option>
                         <option value="15">15</option>
@@ -68,7 +68,7 @@
                     </thead>
                     <tbody>
                       <tr
-                        v-for="(jrs, Kode_jurusan) in jurusans.slice(0, 5)" :key="Kode_jurusan"
+                        v-for="(jrs, Kode_jurusan) in filteredJurusans" :key="Kode_jurusan"
                       >
                         <td style="text-align: left;">{{ jrs.Kode_jurusan }}</td>
                         <td style="text-align: left;">{{ jrs.Nama_jurusan }}</td>
@@ -113,8 +113,13 @@ export default {
   setup() {
     //reactive state
     let jurusans = ref([]);
-
+    const selectedOption = ref('20');
     let user = ref([]);
+
+    const filteredJurusans = computed(() => {
+      const limit = parseInt(selectedOption.value);
+      return jurusans.value.slice(0, limit);
+    });
 
     const store = useStore(); // Menggunakan useStore() untuk mendapatkan instance store
     const router = useRouter();
@@ -146,25 +151,28 @@ export default {
         
     });
     //method delete
-    function jurusanDelete(id) {
-      //delete data jurusan by ID
-      axios
-        .delete(`http://localhost:8000/api/jurusan/${id}`)
-        .then(() => {
-          //splice jurusans
-          jurusans.value.splice(jurusans.value.indexOf(id), 1);
-        })
-        .catch((error) => {
-          console.log(error.response.data);
-        });
-    }
+    // function jurusanDelete(id) {
+    //   //delete data jurusan by ID
+    //   axios
+    //     .delete(`http://localhost:8000/api/jurusan/${id}`)
+    //     .then(() => {
+    //       //splice jurusans
+    //       jurusans.value.splice(jurusans.value.indexOf(id), 1);
+    //     })
+    //     .catch((error) => {
+    //       console.log(error.response.data);
+    //     });
+    // }
 
     //return
     return {
       jurusans,
-      jurusanDelete,
+      // jurusanDelete,
       user,
+      selectedOption,
+      filteredJurusans,
     };
   },
+  
 };
 </script>

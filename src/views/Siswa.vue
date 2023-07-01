@@ -7,7 +7,7 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
-                    <li class="breadcrumb-item"><a href="/siswa">Siswa</a></li>
+          <li class="breadcrumb-item"><a href="/siswa">Siswa</a></li>
 
         </ol>
       </nav>
@@ -20,13 +20,11 @@
           <div class="card">
             <div class="card-body">
               <!-- Table with stripped rows -->
-              <div
-                class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns"
-              >
+              <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
                 <div class="datatable-top">
                   <div class="datatable-dropdown">
                     <label>
-                      <select class="datatable-selector">
+                      <select class="datatable-selector" v-model="selectedOption">
                         <option value="5">5</option>
                         <option value="10" selected="">10</option>
                         <option value="15">15</option>
@@ -36,70 +34,45 @@
                       entries per page
                     </label>
                   </div>
-                  <div class="datatable-search">
-                    <input
-                      class="datatable-input"
-                      placeholder="Search..."
-                      type="search"
-                      title="Search within table"
-                    />
+                  <div class="datatable-search" >
+                    <input class="datatable-input" placeholder="Search..." type="search" title="Search within table" />
                   </div>
                 </div>
                 <div class="datatable-container">
                   <table class="table datatable datatable-table">
                     <thead>
                       <tr>
-                        <th
-                          data-sortable="true"
-                        >
+                        <th data-sortable="true">
                           <a href="#" class="datatable-sorter" style="text-align: left;">ID</a>
                         </th>
-                        <th
-                          data-sortable="true"
-                        >
+                        <th data-sortable="true">
                           <a href="#" class="datatable-sorter" style="text-align: left;">NISN</a>
                         </th>
-                        <th
-                          data-sortable="true"
-                        >
+                        <th data-sortable="true">
                           <a href="#" class="datatable-sorter" style="text-align: left;">NIK</a>
                         </th>
-                        <th
-                          data-sortable="true"
-                        >
+                        <th data-sortable="true">
                           <a href="#" class="datatable-sorter" style="text-align: left;">Nama Lengkap</a>
                         </th>
-                        <th
-                          data-sortable="true"
-                        >
+                        <th data-sortable="true">
                           <a href="#" class="datatable-sorter" style="text-align: left;">Jenis Kelamin</a>
                         </th>
-                        <th
-                          data-sortable="true"
-                        >
+                        <th data-sortable="true">
                           <a href="#" class="datatable-sorter" style="text-align: left;">Tanggal Lahir</a>
                         </th>
-                        <th
-                          data-sortable="true"
-                        >
+                        <th data-sortable="true">
                           <a href="#" class="datatable-sorter" style="text-align: left;">Nama Ibu Kandung</a>
                         </th>
-                        <th
-                          data-sortable="true"
-                        >
+                        <th data-sortable="true">
                           <a href="#" class="datatable-sorter" style="text-align: left;">NPSN</a>
                         </th>
-                        <th
-                          data-sortable="true"
-                        >
+                        <th data-sortable="true">
                           <a href="#">Aksi</a>
                         </th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr
-                        v-for="(ssw, ID) in siswas.slice(0, 5)" :key="ID"
-                      >
+                      <tr v-for="(ssw, ID) in filteredSiswas" :key="ID">
                         <td style="text-align: left;">{{ ssw.ID }}</td>
                         <td style="text-align: left;">{{ ssw.NISN }}</td>
                         <td style="text-align: left;">{{ ssw.NIK }}</td>
@@ -133,7 +106,7 @@
 
 <script>
 import axios from "axios";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, computed } from "vue";
 
 import Header from '../components/Header.vue'
 import Sidebar from '../components/Sidebar.vue'
@@ -148,7 +121,12 @@ export default {
   setup() {
     //reactive state
     let siswas = ref([]);
+    const selectedOption = ref('20');
 
+    const filteredSiswas = computed(() => {
+            const limit = parseInt(selectedOption.value);
+            return siswas.value.slice(0, limit);
+        });
     //mounted
     onMounted(() => {
       //get API from Laravel Backend
@@ -163,23 +141,25 @@ export default {
         });
     });
     //method delete
-    function siswaDelete(id) {
-      //delete data siswa by ID
-      axios
-        .delete(`http://localhost:8000/api/siswa/${id}`)
-        .then(() => {
-          //splice siswas
-          siswas.value.splice(siswas.value.indexOf(id), 1);
-        })
-        .catch((error) => {
-          console.log(error.response.data);
-        });
-    }
+    // function siswaDelete(id) {
+    //   //delete data siswa by ID
+    //   axios
+    //     .delete(`http://localhost:8000/api/siswa/${id}`)
+    //     .then(() => {
+    //       //splice siswas
+    //       siswas.value.splice(siswas.value.indexOf(id), 1);
+    //     })
+    //     .catch((error) => {
+    //       console.log(error.response.data);
+    //     });
+    // }
 
     //return
     return {
       siswas,
-      siswaDelete,
+      // siswaDelete,
+      selectedOption,
+      filteredSiswas,
     };
   },
 };
