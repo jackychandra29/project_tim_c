@@ -8,7 +8,7 @@
             <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
               <div class="d-flex justify-content-center py-4">
-                <a href="index.html" class="logo d-flex align-items-center w-auto">
+                <a href="#" class="logo d-flex align-items-center w-auto">
                   <img src="assets/img/logo-color.png" alt="">
                   <span class="d-none d-lg-block">Dashboard Manajemen Sistem Vokasi Riau</span>
                 </a>
@@ -84,7 +84,7 @@ export default {
       result: {},
       user: {
         email: '',
-        password: ''
+        password: '',
       }
     }
   },
@@ -102,7 +102,7 @@ export default {
         .then(({ data }) => {
           console.log(data);
           try {
-            if (data.status === true) {
+            if (data.status === true && data.data.status==1) {
               alert("Login Successfully");
               this.$store.commit('setLoggedIn', true);
               this.$store.commit('setUser', data.data);
