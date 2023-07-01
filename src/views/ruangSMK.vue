@@ -3,11 +3,11 @@
     <Sidebar></Sidebar>
     <main id="main" class="main">
         <div class="pagetitle">
-            <h1 style="text-align: left;">Data Sebaran Siswa</h1>
+            <h1 style="text-align: left;">Data Sebaran Ruang</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
-                    <li class="breadcrumb-item"><a href="/siswaSMK">Siswa</a></li>
+                    <li class="breadcrumb-item"><a href="/ruangSMK">Ruang</a></li>
 
                 </ol>
             </nav>
@@ -44,32 +44,31 @@
                                         <thead>
                                             <tr>
                                                 <th data-sortable="true">
-                                                    <a href="#" class="datatable-sorter" style="text-align: left;">ID</a>
-                                                </th>
-                                                <th data-sortable="true">
-                                                    <a href="#" class="datatable-sorter" style="text-align: left;">NISN</a>
-                                                </th>
-                                                <th data-sortable="true">
-                                                    <a href="#" class="datatable-sorter" style="text-align: left;">NIK</a>
+                                                    <a href="#" class="datatable-sorter" style="text-align: left;">Kode
+                                                        Ruang</a>
                                                 </th>
                                                 <th data-sortable="true">
                                                     <a href="#" class="datatable-sorter" style="text-align: left;">Nama
-                                                        Lengkap</a>
+                                                        Ruang</a>
                                                 </th>
                                                 <th data-sortable="true">
-                                                    <a href="#" class="datatable-sorter" style="text-align: left;">Jenis
-                                                        Kelamin</a>
+                                                    <a href="#" class="datatable-sorter"
+                                                        style="text-align: left;">Panjang</a>
                                                 </th>
                                                 <th data-sortable="true">
-                                                    <a href="#" class="datatable-sorter" style="text-align: left;">Tanggal
-                                                        Lahir</a>
+                                                    <a href="#" class="datatable-sorter" style="text-align: left;">Lebar</a>
                                                 </th>
                                                 <th data-sortable="true">
-                                                    <a href="#" class="datatable-sorter" style="text-align: left;">Nama Ibu
-                                                        Kandung</a>
+                                                    <a href="#" class="datatable-sorter"
+                                                        style="text-align: left;">Lantai</a>
                                                 </th>
                                                 <th data-sortable="true">
-                                                    <a href="#" class="datatable-sorter" style="text-align: left;">NPSN</a>
+                                                    <a href="#" class="datatable-sorter" style="text-align: left;">Kode
+                                                        Bangunan</a>
+                                                </th>
+                                                <th data-sortable="true">
+                                                    <a href="#" class="datatable-sorter" style="text-align: left;">Kode
+                                                        Jenis Ruang</a>
                                                 </th>
                                                 <th data-sortable="true">
                                                     <a href="#">Aksi</a>
@@ -77,15 +76,14 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-for="(ssw, ID) in siswas.slice(0, 5)" :key="ID">
-                                                <td style="text-align: left;">{{ ssw.ID }}</td>
-                                                <td style="text-align: left;">{{ ssw.NISN }}</td>
-                                                <td style="text-align: left;">{{ ssw.NIK }}</td>
-                                                <td style="text-align: left;">{{ ssw.Nama_lengkap }}</td>
-                                                <td style="text-align: left;">{{ ssw.Jenis_kelamin }}</td>
-                                                <td style="text-align: left;">{{ ssw.Tanggal_lahir }}</td>
-                                                <td style="text-align: left;">{{ ssw.Nama_ibuKandung }}</td>
-                                                <td style="text-align: left;">{{ ssw.NPSN }}</td>
+                                            <tr v-for="(rg, Kode_ruang) in ruangs.slice(0, 5)" :key="Kode_ruang">
+                                                <td style="text-align: left;">{{ rg.Kode_ruang }}</td>
+                                                <td style="text-align: left;">{{ rg.Nama_ruang }}</td>
+                                                <td style="text-align: left;">{{ rg.Panjang }}</td>
+                                                <td style="text-align: left;">{{ rg.Lebar }}</td>
+                                                <td style="text-align: left;">{{ rg.Lantai }}</td>
+                                                <td style="text-align: left;">{{ rg.Kode_bangunan }}</td>
+                                                <td style="text-align: left;">{{ rg.Kode_jenis_ruang }}</td>
                                                 <td><button type="button" class="btn btn-warning rounded-pill">Edit</button>
                                                 </td>
 
@@ -128,7 +126,8 @@ export default {
     },
     setup() {
         //reactive state
-        let siswas = ref([]);
+        // let bangunans = ref([]);
+        let ruangs = ref([]);
 
         let user = ref([]);
 
@@ -142,34 +141,39 @@ export default {
         //mounted
         onMounted(() => {
 
-            if (loggedIn.value) {
-                // Tidak perlu melakukan axios.get untuk mengambil data pengguna karena data sudah ada di Vuex
-                user.value = store.getters.user;
-                console.log(user.value);
-            } else {
-                router.push({ name: 'Login' });
-            }
+            
 
             //get API from Laravel Backend
-            axios
-                .get("http://localhost:8000/api/siswa")
-                .then((response) => {
-                    // Filter data siswa berdasarkan NPSN '1111'
-                    const filteredSiswas = response.data.data.filter(siswa => siswa.NPSN === user.value.NPSN);
-                    siswas.value = filteredSiswas;
-                })
-                .catch((error) => {
-                    console.log(error.response.data);
-                });
+            onMounted(() => {
+                //get API from Laravel Backend
+                axios
+                    .get("http://localhost:8000/api/ruang")
+                    .then((response) => {
+                        //asign state ruangs with response data
+                        ruangs.value = response.data.data;
+                    })
+                    .catch((error) => {
+                        console.log(error.response.data);
+                    });
+
+                if (loggedIn.value) {
+                    // Tidak perlu melakukan axios.get untuk mengambil data pengguna karena data sudah ada di Vuex
+                    user.value = store.getters.user;
+                    console.log(user.value);
+                } else {
+                    router.push({ name: 'Login' });
+                }
+
+            });
         });
         //method delete
-        // function siswaDelete(id) {
-        //     //delete data siswa by ID
+        // function ruangDelete(id) {
+        //     //delete data ruang by ID
         //     axios
-        //         .delete(`http://localhost:8000/api/siswa/${id}`)
+        //         .delete(`http://localhost:8000/api/ruang/${id}`)
         //         .then(() => {
-        //             //splice siswas
-        //             siswas.value.splice(siswas.value.indexOf(id), 1);
+        //             //splice ruangs
+        //             ruangs.value.splice(ruangs.value.indexOf(id), 1);
         //         })
         //         .catch((error) => {
         //             console.log(error.response.data);
@@ -178,8 +182,9 @@ export default {
 
         //return
         return {
-            siswas,
-            // siswaDelete,
+            ruangs,
+            // bangunans,
+            // ruangDelete,
             user,
         };
     },

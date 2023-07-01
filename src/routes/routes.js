@@ -13,6 +13,9 @@ import Login from '../components/Login';
 import EditSekolah from '../views/EditSekolah.vue';
 import JurusanSMK from '../views/jurusanSMK';
 import SiswaSMK from '../views/siswaSMK';
+import RuangSMK from '../views/ruangSMK';
+import StaffSMK from '../views/staffSMK';
+import RombelSMK from '../views/rombelSMK';
 
 const routes = [
     {
@@ -79,6 +82,21 @@ const routes = [
     name: 'siswaSMK',
     path: '/siswaSMK',
     component: SiswaSMK,
+  },
+  {
+    name: 'ruangSMK',
+    path: '/ruangSMK',
+    component: RuangSMK,
+  },
+  {
+    name: 'staffSMK',
+    path: '/staffSMK',
+    component: StaffSMK,
+  },
+  {
+    name: 'rombelSMK',
+    path: '/rombelSMK',
+    component: RombelSMK,
   },
 ];
 
