@@ -11,6 +11,7 @@ import AdminSMK from '../views/AdminSMK';
 import Register from '../components/Register';
 import Login from '../components/Login';
 import EditSekolah from '../views/EditSekolah.vue';
+
 const routes = [
     {
         name: 'Dashboard',
