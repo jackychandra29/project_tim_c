@@ -88,11 +88,6 @@
                         >
                           <a href="#" class="datatable-sorter" style="text-align: left;">Induk</a>
                         </th>
-                        <th
-                          data-sortable="true"
-                        >
-                          <a href="#">Aksi</a>
-                        </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -107,7 +102,6 @@
                         <td style="text-align: left;">{{ stf.Jenis_kelamin }}</td>
                         <td style="text-align: left;">{{ stf.Tanggal_lahir }}</td>
                         <td style="text-align: left;">{{ stf.Induk }}</td>
-                        <td><button type="button" class="btn btn-warning rounded-pill">Edit</button></td>
                       </tr>
                     </tbody>
                   </table>

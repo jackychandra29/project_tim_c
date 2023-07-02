@@ -84,9 +84,9 @@
                                                 <td style="text-align: left;">{{ rg.Lantai }}</td>
                                                 <td style="text-align: left;">{{ rg.Kode_bangunan }}</td>
                                                 <td style="text-align: left;">{{ rg.Kode_jenis_ruang }}</td>
-                                                <td><button type="button" class="btn btn-warning rounded-pill">Edit</button>
-                                                </td>
-
+                                                <td>
+                          <router-link :to="`/ruangSMK/edit/${ruang.Kode_ruang}`" class="btn btn-primary">Edit</router-link>
+                        </td>
                                             </tr>
                                         </tbody>
                                     </table>

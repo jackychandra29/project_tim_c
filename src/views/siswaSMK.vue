@@ -77,17 +77,18 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-for="(ssw, ID) in filteredSiswas" :key="ID">
-                                                <td style="text-align: left;">{{ ssw.ID }}</td>
-                                                <td style="text-align: left;">{{ ssw.NISN }}</td>
-                                                <td style="text-align: left;">{{ ssw.NIK }}</td>
-                                                <td style="text-align: left;">{{ ssw.Nama_lengkap }}</td>
-                                                <td style="text-align: left;">{{ ssw.Jenis_kelamin }}</td>
-                                                <td style="text-align: left;">{{ ssw.Tanggal_lahir }}</td>
-                                                <td style="text-align: left;">{{ ssw.Nama_ibuKandung }}</td>
-                                                <td style="text-align: left;">{{ ssw.NPSN }}</td>
-                                                <td><button type="button" class="btn btn-warning rounded-pill">Edit</button>
-                                                </td>
+                                            <tr v-for="(siswa, ID) in filteredSiswas" :key="ID">
+                                                <td style="text-align: left;">{{ siswa.ID }}</td>
+                                                <td style="text-align: left;">{{ siswa.NISN }}</td>
+                                                <td style="text-align: left;">{{ siswa.NIK }}</td>
+                                                <td style="text-align: left;">{{ siswa.Nama_lengkap }}</td>
+                                                <td style="text-align: left;">{{ siswa.Jenis_kelamin }}</td>
+                                                <td style="text-align: left;">{{ siswa.Tanggal_lahir }}</td>
+                                                <td style="text-align: left;">{{ siswa.Nama_ibuKandung }}</td>
+                                                <td style="text-align: left;">{{ siswa.NPSN }}</td>
+                                                <td>
+                          <router-link :to="`/siswaSMK/edit/${siswa.ID}`" class="btn btn-primary">Edit</router-link>
+                        </td>
 
                                             </tr>
                                         </tbody>

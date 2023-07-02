@@ -94,11 +94,6 @@
                         >
                           <a href="#" class="datatable-sorter" style="text-align: left;">Jurusan SP ID</a>
                         </th>
-                        <th
-                          data-sortable="true"
-                        >
-                          <a href="#">Aksi</a>
-                        </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -114,8 +109,6 @@
                         <td style="text-align: left;">{{ rbl.Kode_ruang }}</td>
                         <td style="text-align: left;">{{ rbl.ID_staff }}</td>
                         <td style="text-align: left;">{{ rbl.Jurusan_SP_ID }}</td>
-                        <td><button type="button" class="btn btn-warning rounded-pill">Edit</button></td>
-
                       </tr>
                     </tbody>
                   </table>
