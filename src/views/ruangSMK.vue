@@ -24,7 +24,7 @@
                                 <div class="datatable-top">
                                     <div class="datatable-dropdown">
                                         <label>
-                                            <select class="datatable-selector">
+                                            <select class="datatable-selector" v-model="selectedOption">
                                                 <option value="5">5</option>
                                                 <option value="10" selected="">10</option>
                                                 <option value="15">15</option>
@@ -76,7 +76,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-for="(rg, Kode_ruang) in ruangs.slice(0, 5)" :key="Kode_ruang">
+                                            <tr v-for="(rg, Kode_ruang) in filteredRuangs" :key="Kode_ruang">
                                                 <td style="text-align: left;">{{ rg.Kode_ruang }}</td>
                                                 <td style="text-align: left;">{{ rg.Nama_ruang }}</td>
                                                 <td style="text-align: left;">{{ rg.Panjang }}</td>
@@ -128,9 +128,13 @@ export default {
         //reactive state
         // let bangunans = ref([]);
         let ruangs = ref([]);
-
+        const selectedOption = ref('20');
         let user = ref([]);
-
+        
+        const filteredRuangs = computed(() => {
+      const limit = parseInt(selectedOption.value);
+      return ruangs.value.slice(0, limit);
+    });
         const store = useStore(); // Menggunakan useStore() untuk mendapatkan instance store
         const router = useRouter();
 
@@ -141,7 +145,7 @@ export default {
         //mounted
         onMounted(() => {
 
-            
+
 
             //get API from Laravel Backend
             onMounted(() => {
@@ -186,6 +190,8 @@ export default {
             // bangunans,
             // ruangDelete,
             user,
+            selectedOption,
+            filteredRuangs,
         };
     },
 };

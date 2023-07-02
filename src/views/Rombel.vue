@@ -26,7 +26,7 @@
                 <div class="datatable-top">
                   <div class="datatable-dropdown">
                     <label>
-                      <select class="datatable-selector">
+                      <select class="datatable-selector" v-model="selectedOption">
                         <option value="5">5</option>
                         <option value="10" selected="">10</option>
                         <option value="15">15</option>
@@ -103,7 +103,7 @@
                     </thead>
                     <tbody>
                       <tr
-                        v-for="(rbl,Kode_rombel)  in rombels.slice(0, 5)" :key="Kode_rombel"
+                        v-for="(rbl,Kode_rombel)  in filteredRombels" :key="Kode_rombel"
                       >
                         <td style="text-align: left;">{{ rbl.Kode_rombel }}</td>
                         <td style="text-align: left;">{{ rbl.Nama_rombel }}</td>
@@ -139,7 +139,7 @@
 
 <script>
 import axios from "axios";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, computed } from "vue";
 
 import Header from '../components/Header.vue'
 import Sidebar from '../components/Sidebar.vue'
@@ -154,6 +154,12 @@ export default {
   setup() {
     //reactive state
     let rombels = ref([]);
+    const selectedOption = ref('20');
+
+    const filteredRombels = computed(() => {
+      const limit = parseInt(selectedOption.value);
+      return rombels.value.slice(0, limit);
+    });
 
     //mounted
     onMounted(() => {
@@ -186,6 +192,8 @@ export default {
     return {
       rombels,
       rombelDelete,
+      selectedOption,
+      filteredRombels,
     };
   },
 };

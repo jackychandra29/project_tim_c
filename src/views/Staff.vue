@@ -25,7 +25,7 @@
                 <div class="datatable-top">
                   <div class="datatable-dropdown">
                     <label>
-                      <select class="datatable-selector">
+                      <select class="datatable-selector" v-model="selectedOption">
                         <option value="5">5</option>
                         <option value="10" selected="">10</option>
                         <option value="15">15</option>
@@ -97,7 +97,7 @@
                     </thead>
                     <tbody>
                       <tr
-                        v-for="(stf,ID_staff)  in staffs.slice(0, 5)" :key="ID_staff"
+                        v-for="(stf,ID_staff)  in filteredStaffs" :key="ID_staff"
                       >
                         <td style="text-align: left;">{{ stf.ID_staff }}</td>
                         <td style="text-align: left;">{{ stf.NUPTK }}</td>
@@ -131,7 +131,7 @@
 
 <script>
 import axios from "axios";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, computed } from "vue";
 
 import Header from '../components/Header.vue'
 import Sidebar from '../components/Sidebar.vue'
@@ -146,6 +146,12 @@ export default {
   setup() {
     //reactive state
     let staffs = ref([]);
+    const selectedOption = ref('20');
+
+    const filteredStaffs = computed(() => {
+      const limit = parseInt(selectedOption.value);
+      return staffs.value.slice(0, limit);
+    });
 
     //mounted
     onMounted(() => {
@@ -178,6 +184,8 @@ export default {
     return {
       staffs,
       staffDelete,
+      selectedOption,
+      filteredStaffs,
     };
   },
 };

@@ -26,7 +26,7 @@
                 <div class="datatable-top">
                   <div class="datatable-dropdown">
                     <label>
-                      <select class="datatable-selector">
+                      <select class="datatable-selector" v-model="selectedOption">
                         <option value="5">5</option>
                         <option value="10" selected="">10</option>
                         <option value="15">15</option>
@@ -93,7 +93,7 @@
                     </thead>
                     <tbody>
                       <tr
-                        v-for="(rg, Kode_ruang) in ruangs.slice(0, 5)" :key="Kode_ruang"
+                        v-for="(rg, Kode_ruang) in filteredRuangs" :key="Kode_ruang"
                       >
                         <td style="text-align: left;">{{ rg.Kode_ruang }}</td>
                         <td style="text-align: left;">{{ rg.Nama_ruang }}</td>
@@ -127,7 +127,7 @@
 
 <script>
 import axios from "axios";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, computed } from "vue";
 
 import Header from '../components/Header.vue'
 import Sidebar from '../components/Sidebar.vue'
@@ -142,6 +142,12 @@ export default {
   setup() {
     //reactive state
     let ruangs = ref([]);
+    const selectedOption = ref('20');
+
+    const filteredRuangs = computed(() => {
+      const limit = parseInt(selectedOption.value);
+      return ruangs.value.slice(0, limit);
+    });
 
     //mounted
     onMounted(() => {
@@ -174,6 +180,8 @@ export default {
     return {
       ruangs,
       ruangDelete,
+      selectedOption,
+      filteredRuangs,
     };
   },
 };

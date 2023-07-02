@@ -24,7 +24,7 @@
                 <div class="datatable-top">
                   <div class="datatable-dropdown">
                     <label>
-                      <select class="datatable-selector">
+                      <select class="datatable-selector" v-model="selectedOption">
                         <option value="5">5</option>
                         <option value="10" selected="">10</option>
                         <option value="15">15</option>
@@ -66,7 +66,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(sekolah, NPSN) in sekolahs.slice(0, 5)" :key="NPSN">
+                      <tr v-for="(sekolah, NPSN) in filteredSekolahs" :key="NPSN">
                         <td style="text-align: left;">{{ sekolah.NPSN }}</td>
                         <td style="text-align: left;">{{ sekolah.Nama_SP }}</td>
                         <td style="text-align: left;">{{ sekolah.Bentuk_pendidikan }}</td>
@@ -98,59 +98,68 @@
 </template>
 
 <script>
-  import axios from "axios";
-  import {
-    onMounted,
-    ref
-  } from "vue";
+import axios from "axios";
+import {
+  onMounted,
+  ref, computed
+} from "vue";
 
-  import Header from '../components/Header.vue'
-  import Sidebar from '../components/Sidebar.vue'
-  import Footer from '../components/Footer.vue'
+import Header from '../components/Header.vue'
+import Sidebar from '../components/Sidebar.vue'
+import Footer from '../components/Footer.vue'
 
-  export default {
-    components: {
-      Header,
-      Sidebar,
-      Footer,
-    },
-    setup() {
-      //reactive state
-      let sekolahs = ref([]);
+export default {
+  components: {
+    Header,
+    Sidebar,
+    Footer,
+  },
+  setup() {
+    //reactive state
+    let sekolahs = ref([]);
+    const selectedOption = ref('20');
 
-      //mounted
-      onMounted(() => {
-        //get API from Laravel Backend
-        axios
-          .get("http://localhost:8000/api/sekolah")
-          .then((response) => {
-            //asign state sekolahs with response data
-            sekolahs.value = response.data.data;
-            console.log(sekolahs.value)
-          })
-          .catch((error) => {
-            console.log(error.response.data);
-          });
-      });
-      //method delete
-      // function sekolahDelete(id) {
-      //   //delete data sekolah by ID
-      //   axios
-      //     .delete(`http://localhost:8000/api/sekolah/${id}`)
-      //     .then(() => {
-      //       //splice sekolahs
-      //       sekolahs.value.splice(sekolahs.value.indexOf(id), 1);
-      //     })
-      //     .catch((error) => {
-      //       console.log(error.response.data);
-      //     });
-      // }
+    const filteredSekolahs = computed(() => {
+      const limit = parseInt(selectedOption.value);
+      return sekolahs.value.slice(0, limit);
+    });
 
-      //return
-      return {
-        sekolahs,
-        // sekolahDelete,
-      };
-    },
-  };
+    //mounted
+    onMounted(() => {
+      //get API from Laravel Backend
+      axios
+        .get("http://localhost:8000/api/sekolah")
+        .then((response) => {
+          //asign state sekolahs with response data
+          sekolahs.value = response.data.data;
+          console.log(sekolahs.value)
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+        });
+    });
+    //method delete
+    // function sekolahDelete(id) {
+    //   //delete data sekolah by ID
+    //   axios
+    //     .delete(`http://localhost:8000/api/sekolah/${id}`)
+    //     .then(() => {
+    //       //splice sekolahs
+    //       sekolahs.value.splice(sekolahs.value.indexOf(id), 1);
+    //     })
+    //     .catch((error) => {
+    //       console.log(error.response.data);
+    //     });
+    // }
+
+    //return
+    return {
+      sekolahs,
+      // sekolahDelete,
+
+      selectedOption,
+      filteredSekolahs,
+    };
+  },
+};
 </script>
