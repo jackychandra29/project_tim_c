@@ -82,7 +82,9 @@
                   </table>
                 </div>
                 <div class="datatable-bottom">
+
                   <div class="datatable-info"></div>
+
                   <nav class="datatable-pagination">
                     <ul class="datatable-pagination-list">
                       <li v-for="page in displayedPages" :key="page" :class="{ active: currentPage === page }">
@@ -91,6 +93,11 @@
                     </ul>
                   </nav>
                 </div>
+
+                <div class="datatable-info">
+  Showing 1 to {{ selectedOption }} of {{ siswaCount }} entries
+</div>
+
               </div>
               <!-- End Table with stripped rows -->
             </div>
@@ -119,6 +126,7 @@ export default {
   setup() {
     //reactive state
     let siswas = ref([]);
+
     const selectedOption = ref('20');
 
     const currentPage = ref(1);
@@ -137,6 +145,7 @@ export default {
 
       return pages;
     });
+
 
     const totalPages = computed(() => {
       const limit = parseInt(selectedOption.value);
@@ -161,17 +170,17 @@ export default {
 
     //mounted
     onMounted(() => {
-      //get API from Laravel Backend
-      axios
-        .get("http://localhost:8000/api/siswa")
-        .then((response) => {
-          //assign state siswas with response data
-          siswas.value = response.data.data;
-        })
-        .catch((error) => {
-          console.log(error.response.data);
-        });
+  axios
+    .get("http://localhost:8000/api/siswa")
+    .then((response) => {
+      siswas.value = response.data.data;
+      siswaCount.value = response.data.count; // Assuming the count value is provided in the response as `count`
+    })
+    .catch((error) => {
+      console.log(error.response.data);
     });
+});
+
 
     return {
       siswas,

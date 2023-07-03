@@ -103,11 +103,19 @@ export default {
           console.log(data);
           try {
             if (data.status === true && data.data.status==1) {
-              alert("Login Successfully");
-              this.$store.commit('setLoggedIn', true);
-              this.$store.commit('setUser', data.data);
-              this.$router.push({ name: 'Dashboard' });
-              // console.log(this.$store.getters.user);
+              if(data.data.role==0){
+                alert("Login Successfully");
+                this.$store.commit('setLoggedIn', true);
+                this.$store.commit('setUser', data.data);
+                this.$router.push({ name: 'Dashboard' });
+                // console.log(this.$store.getters.user);
+              }else{
+                alert("Login Successfully");
+                this.$store.commit('setLoggedIn', true);
+                this.$store.commit('setUser', data.data);
+                this.$router.push({ name: 'jurusanSMK' });
+              }
+             
             } else {
               alert("Login Failed");
             }

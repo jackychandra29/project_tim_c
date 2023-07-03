@@ -93,7 +93,7 @@
                   </div>
 
                 </div>
-
+                <br>
                 <button type="submit" class="btn btn-primary rounded-pill">Simpan</button>
               </form>
 
@@ -149,7 +149,7 @@ export default {
       let Kode_kecamatan = post.Kode_kecamatan
       let Kode_kabKota = post.Kode_kabKota
 
-      axios.post('http://localhost:8000/api/post', {
+      axios.post('http://localhost:8000/api/sekolah', {
         NPSN: NPSN,
         Nama_SP: Nama_SP,
         Bentuk_pendidikan: Bentuk_pendidikan,
@@ -158,11 +158,8 @@ export default {
         Kode_kabKota: Kode_kabKota
       }).then(() => {
         router.push({
-          name: 'post.index'
+          name: 'Sekolah'
         })
-      }).catch(error => {
-        //assign state validation w error
-        sekolah.value = error.response.data
       })
     }
 
