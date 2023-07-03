@@ -97,7 +97,7 @@ export default {
                 Nama_jurusan: Nama_jurusan
             }).then(() => {
                 router.push({
-                    name: 'post.index'
+                    name: 'JurusanSMK'
                 })
             }).catch(error => {
                 //assign state jurusan w error

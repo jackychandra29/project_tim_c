@@ -8,7 +8,7 @@
             Sistem Vokasi Riau</span
           >
         </a>
-        <i class="bi bi-list toggle-sidebar-btn"></i>
+        
       </div>
       <!-- End Logo -->
 
