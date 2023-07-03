@@ -114,7 +114,7 @@ export default {
         })
         .then(() => {
           console.log('Data jurusan berhasil diperbarui');
-          router.push({ name: 'Jurusan' });
+          router.push({ name: 'jurusanSMK' });
         })
         .catch((error) => {
           console.log(error.response.data);
