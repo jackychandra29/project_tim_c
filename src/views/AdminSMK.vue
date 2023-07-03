@@ -81,7 +81,7 @@
                     </table>
                   </div>
                   <div class="datatable-bottom">
-                    <div class="datatable-info">Showing 1 to 5 of 5 entries</div>
+                    <div class="datatable-info"></div>
                     <nav class="datatable-pagination">
                       <ul class="datatable-pagination-list"></ul>
                     </nav>

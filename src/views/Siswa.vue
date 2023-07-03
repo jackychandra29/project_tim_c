@@ -95,8 +95,7 @@
                 </div>
 
                 <div class="datatable-info">
-  Showing 1 to {{ selectedOption }} of {{ siswaCount }} entries
-</div>
+                </div>
 
               </div>
               <!-- End Table with stripped rows -->
@@ -170,16 +169,16 @@ export default {
 
     //mounted
     onMounted(() => {
-  axios
-    .get("http://localhost:8000/api/siswa")
-    .then((response) => {
-      siswas.value = response.data.data;
-      siswaCount.value = response.data.count; // Assuming the count value is provided in the response as `count`
-    })
-    .catch((error) => {
-      console.log(error.response.data);
+      axios
+        .get("http://localhost:8000/api/siswa")
+        .then((response) => {
+          siswas.value = response.data.data;
+          // siswaCount.value = response.data.count; // Assuming the count value is provided in the response as `count`
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+        });
     });
-});
 
 
     return {

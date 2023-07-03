@@ -1,5 +1,5 @@
 <template>
-    <Header></Header>
+  <Header></Header>
   <Sidebar></Sidebar>
   <main id="main" class="main">
     <div class="pagetitle">
@@ -14,46 +14,46 @@
     </div>
 
     <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Data Jurusan</h5>
+      <div class="card-body">
+        <h5 class="card-title">Data Jurusan</h5>
 
-          <form @submit.prevent="updateJurusan">
-            <div class="row mb-3">
-              <label style="text-align: left;" for="inputKodeJurusan" class="col-sm-2 col-form-label">Kode Jurusan</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" v-model="jurusan.Kode_jurusan" disabled>
-                <div v-if="validation.Kode_jurusan" class="mt-2 alert alert-danger">
-                  {{ validation.Kode_jurusan[0]}}
-                </div>
+        <form @submit.prevent="updateJurusan">
+          <div class="row mb-3">
+            <label style="text-align: left;" for="inputKodeJurusan" class="col-sm-2 col-form-label">Kode Jurusan</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" v-model="jurusan.Kode_jurusan" disabled>
+              <div v-if="validation.Kode_jurusan" class="mt-2 alert alert-danger">
+                {{ validation.Kode_jurusan[0] }}
               </div>
             </div>
+          </div>
 
-            <div class="row mb-3">
-              <label style="text-align: left;" for="inputNamaJurusan" class="col-sm-2 col-form-label">Nama Jurusan</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" v-model="jurusan.Nama_jurusan">
-                <div v-if="validation.Nama_jurusan" class="mt-2 alert alert-danger">
-                  {{ validation.Nama_jurusan[0]}}
-                </div>
+          <div class="row mb-3">
+            <label style="text-align: left;" for="inputNamaJurusan" class="col-sm-2 col-form-label">Nama Jurusan</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" v-model="jurusan.Nama_jurusan">
+              <div v-if="validation.Nama_jurusan" class="mt-2 alert alert-danger">
+                {{ validation.Nama_jurusan[0] }}
               </div>
             </div>
+          </div>
 
 
-<br>
-<div>
-  <div class="float-start">
-    <button class="btn btn-primary" href="/jurusan">Kembali</button>
-  </div>
-  <div class="float-end">
-    <button type="submit" class="btn btn-primary" @click.prevent="updateJurusan">Simpan Perubahan</button>
-  </div>
-  </div>
-  
+          <br>
+          <div>
+            <div class="float-start">
+              <button class="btn btn-primary" href="/jurusan">Kembali</button>
+            </div>
+            <div class="float-end">
+              <button type="submit" class="btn btn-primary" @click.prevent="updateJurusan">Simpan Perubahan</button>
+            </div>
+          </div>
 
-          </form>
 
-        </div>
+        </form>
+
       </div>
+    </div>
   </main>
   <Footer></Footer>
 </template>
