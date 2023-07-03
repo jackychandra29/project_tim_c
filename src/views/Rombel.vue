@@ -7,7 +7,7 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
-                    <li class="breadcrumb-item"><a href="/rombel">Rombel</a></li>
+          <li class="breadcrumb-item"><a href="/rombel">Rombel</a></li>
 
         </ol>
       </nav>
@@ -20,9 +20,7 @@
           <div class="card">
             <div class="card-body">
               <!-- Table with stripped rows -->
-              <div
-                class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns"
-              >
+              <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
                 <div class="datatable-top">
                   <div class="datatable-dropdown">
                     <label>
@@ -36,70 +34,43 @@
                       entries per page
                     </label>
                   </div>
-                  <div class="datatable-search">
-                    <input
-                      class="datatable-input"
-                      placeholder="Search..."
-                      type="search"
-                      title="Search within table"
-                    />
-                  </div>
+
                 </div>
                 <div class="datatable-container">
                   <table class="table datatable datatable-table">
                     <thead>
                       <tr>
-                        <th
-                          data-sortable="true"
-                        >
+                        <th data-sortable="true">
                           <a href="#" class="datatable-sorter" style="text-align: left;">Kode Rombel</a>
                         </th>
-                        <th
-                          data-sortable="true"
-                        >
+                        <th data-sortable="true">
                           <a href="#" class="datatable-sorter" style="text-align: left;">Nama Rombel</a>
                         </th>
-                        <th
-                          data-sortable="true"
-                        >
+                        <th data-sortable="true">
                           <a href="#" class="datatable-sorter" style="text-align: left;">Tingkat</a>
                         </th>
-                        <th
-                          data-sortable="true"
-                        >
+                        <th data-sortable="true">
                           <a href="#" class="datatable-sorter" style="text-align: left;">Semester</a>
                         </th>
-                        <th
-                          data-sortable="true"
-                        >
+                        <th data-sortable="true">
                           <a href="#" class="datatable-sorter" style="text-align: left;">Tahun Pelajaran</a>
                         </th>
-                        <th
-                          data-sortable="true"
-                        >
+                        <th data-sortable="true">
                           <a href="#" class="datatable-sorter" style="text-align: left;">Kurikulum</a>
                         </th>
-                        <th
-                          data-sortable="true"
-                        >
+                        <th data-sortable="true">
                           <a href="#" class="datatable-sorter" style="text-align: left;">Kode Ruang</a>
                         </th>
-                        <th
-                          data-sortable="true"
-                        >
+                        <th data-sortable="true">
                           <a href="#" class="datatable-sorter" style="text-align: left;">ID Staff</a>
                         </th>
-                        <th
-                          data-sortable="true"
-                        >
+                        <th data-sortable="true">
                           <a href="#" class="datatable-sorter" style="text-align: left;">Jurusan SP ID</a>
                         </th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr
-                        v-for="(rbl,Kode_rombel)  in filteredRombels" :key="Kode_rombel"
-                      >
+                      <tr v-for="(rbl, Kode_rombel)  in paginated" :key="Kode_rombel">
                         <td style="text-align: left;">{{ rbl.Kode_rombel }}</td>
                         <td style="text-align: left;">{{ rbl.Nama_rombel }}</td>
                         <td style="text-align: left;">{{ rbl.Tingkat }}</td>
@@ -114,9 +85,15 @@
                   </table>
                 </div>
                 <div class="datatable-bottom">
-                  <div class="datatable-info">Showing 1 to 5 of 5 entries</div>
+                  <div class="datatable-info"></div>
                   <nav class="datatable-pagination">
-                    <ul class="datatable-pagination-list"></ul>
+                    <ul class="datatable-pagination-list">
+                      <div>
+                        
+                         
+                        
+                      </div>
+                    </ul>
                   </nav>
                 </div>
               </div>
@@ -149,9 +126,37 @@ export default {
     let rombels = ref([]);
     const selectedOption = ref('20');
 
-    const filteredRombels = computed(() => {
+    const currentPage = ref(1);
+    const visiblePages = ref(5);
+
+    const displayedPages = computed(() => {
+      const startPage = Math.max(1, currentPage.value - Math.floor(visiblePages.value / 2));
+      const endPage = Math.min(startPage + visiblePages.value - 1, totalPages.value);
+      const pages = Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index);
+
+      if (pages.length < visiblePages.value) {
+        const diff = visiblePages.value - pages.length;
+        const newStartPage = Math.max(1, startPage - diff);
+        return Array.from({ length: visiblePages.value }, (_, index) => newStartPage + index);
+      }
+
+      return pages;
+    });
+
+    const totalPages = computed(() => {
       const limit = parseInt(selectedOption.value);
-      return rombels.value.slice(0, limit);
+      return Math.ceil(rombels.value.length / limit);
+    });
+
+    const goToPage = (page) => {
+      currentPage.value = page;
+    };
+
+    const paginated = computed(() => {
+      const limit = parseInt(selectedOption.value);
+      const startIndex = (currentPage.value - 1) * limit;
+      const endIndex = startIndex + limit;
+      return rombels.value.slice(startIndex, endIndex);
     });
 
     //mounted
@@ -186,7 +191,12 @@ export default {
       rombels,
       rombelDelete,
       selectedOption,
-      filteredRombels,
+      currentPage,
+      paginated,
+      totalPages,
+      goToPage,
+      visiblePages,
+      displayedPages
     };
   },
 };

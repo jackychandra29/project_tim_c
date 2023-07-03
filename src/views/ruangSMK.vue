@@ -34,10 +34,7 @@
                                             entries per page
                                         </label>
                                     </div>
-                                    <div class="datatable-search">
-                                        <input class="datatable-input" placeholder="Search..." type="search"
-                                            title="Search within table" />
-                                    </div>
+
                                 </div>
                                 <div class="datatable-container">
                                     <table class="table datatable datatable-table">
@@ -76,7 +73,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-for="(rg, Kode_ruang) in filteredRuangs" :key="Kode_ruang">
+                                            <tr v-for="(rg, Kode_ruang) in paginated" :key="Kode_ruang">
                                                 <td style="text-align: left;">{{ rg.Kode_ruang }}</td>
                                                 <td style="text-align: left;">{{ rg.Nama_ruang }}</td>
                                                 <td style="text-align: left;">{{ rg.Panjang }}</td>
@@ -85,16 +82,22 @@
                                                 <td style="text-align: left;">{{ rg.Kode_bangunan }}</td>
                                                 <td style="text-align: left;">{{ rg.Kode_jenis_ruang }}</td>
                                                 <td>
-                          <router-link :to="`/ruangSMK/edit/${ruang.Kode_ruang}`" class="btn btn-primary">Edit</router-link>
-                        </td>
+                                                    <router-link :to="`/ruangSMK/edit/${rg.Kode_ruang}`"
+                                                        class="btn btn-primary">Edit</router-link>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
                                 <div class="datatable-bottom">
-                                    <div class="datatable-info">Showing 1 to 5 of 5 entries</div>
+                                    <div class="datatable-info"></div>
                                     <nav class="datatable-pagination">
-                                        <ul class="datatable-pagination-list"></ul>
+                                        <ul class="datatable-pagination-list">
+                                            <li v-for="page in displayedPages" :key="page"
+                                                :class="{ active: currentPage === page }">
+                                                <a @click="goToPage(page)">{{ page }}</a>
+                                            </li>
+                                        </ul>
                                     </nav>
                                 </div>
                             </div>
@@ -130,11 +133,44 @@ export default {
         let ruangs = ref([]);
         const selectedOption = ref('20');
         let user = ref([]);
-        
-        const filteredRuangs = computed(() => {
-      const limit = parseInt(selectedOption.value);
-      return ruangs.value.slice(0, limit);
-    });
+
+        const currentPage = ref(1);
+        const visiblePages = ref(5);
+
+        const displayedPages = computed(() => {
+            const startPage = Math.max(1, currentPage.value - Math.floor(visiblePages.value / 2));
+            const endPage = Math.min(startPage + visiblePages.value - 1, totalPages.value);
+            const pages = Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index);
+
+            if (pages.length < visiblePages.value) {
+                const diff = visiblePages.value - pages.length;
+                const newStartPage = Math.max(1, startPage - diff);
+                return Array.from({ length: visiblePages.value }, (_, index) => newStartPage + index);
+            }
+
+            return pages;
+        });
+
+        const totalPages = computed(() => {
+            const limit = parseInt(selectedOption.value);
+            return Math.ceil(ruangs.value.length / limit);
+        });
+
+        const goToPage = (page) => {
+            currentPage.value = page;
+        };
+
+        const paginated = computed(() => {
+            const limit = parseInt(selectedOption.value);
+            const startIndex = (currentPage.value - 1) * limit;
+            const endIndex = startIndex + limit;
+            return ruangs.value.slice(startIndex, endIndex);
+        });
+
+        // const filteredRuangs = computed(() => {
+        //     const limit = parseInt(selectedOption.value);
+        //     return ruangs.value.slice(0, limit);
+        // });
         const store = useStore(); // Menggunakan useStore() untuk mendapatkan instance store
         const router = useRouter();
 
@@ -148,27 +184,27 @@ export default {
 
 
             //get API from Laravel Backend
-            onMounted(() => {
-                //get API from Laravel Backend
-                axios
-                    .get("http://localhost:8000/api/ruang")
-                    .then((response) => {
-                        //asign state ruangs with response data
-                        ruangs.value = response.data.data;
-                    })
-                    .catch((error) => {
-                        console.log(error.response.data);
-                    });
 
-                if (loggedIn.value) {
-                    // Tidak perlu melakukan axios.get untuk mengambil data pengguna karena data sudah ada di Vuex
-                    user.value = store.getters.user;
-                    console.log(user.value);
-                } else {
-                    router.push({ name: 'Login' });
-                }
+            //get API from Laravel Backend
+            axios
+                .get("http://localhost:8000/api/ruang")
+                .then((response) => {
+                    //asign state ruangs with response data
+                    ruangs.value = response.data.data;
+                })
+                .catch((error) => {
+                    console.log(error.response.data);
+                });
 
-            });
+            if (loggedIn.value) {
+                // Tidak perlu melakukan axios.get untuk mengambil data pengguna karena data sudah ada di Vuex
+                user.value = store.getters.user;
+                console.log(user.value);
+            } else {
+                router.push({ name: 'Login' });
+            }
+
+
         });
         //method delete
         // function ruangDelete(id) {
@@ -191,7 +227,12 @@ export default {
             // ruangDelete,
             user,
             selectedOption,
-            filteredRuangs,
+            paginated,
+            totalPages,
+            goToPage,
+            displayedPages,
+            visiblePages,
+            currentPage
         };
     },
 };
