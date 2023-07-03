@@ -82,11 +82,16 @@
                   </table>
                 </div>
                 <div class="datatable-bottom">
-                  <div class="datatable-info">Showing 1 to {{ selectedOption }} of {{ siswas.length }} entries</div>
+                  <div class="datatable-info">Showing 1 to 5 of 5 entries</div>
                   <nav class="datatable-pagination">
                     <ul class="datatable-pagination-list"></ul>
                   </nav>
                 </div>
+
+                <div class="datatable-info">
+  Showing 1 to {{ selectedOption }} of {{ siswaCount }} entries
+</div>
+
               </div>
               <!-- End Table with stripped rows -->
             </div>
@@ -115,6 +120,9 @@ export default {
   setup() {
     //reactive state
     let siswas = ref([]);
+    let siswaCount = ref(0);
+
+
     const selectedOption = ref('10');
 
     const filteredSiswas = computed(() => {
@@ -124,17 +132,17 @@ export default {
 
     //mounted
     onMounted(() => {
-      //get API from Laravel Backend
-      axios
-        .get("http://localhost:8000/api/siswa")
-        .then((response) => {
-          //assign state siswas with response data
-          siswas.value = response.data.data;
-        })
-        .catch((error) => {
-          console.log(error.response.data);
-        });
+  axios
+    .get("http://localhost:8000/api/siswa")
+    .then((response) => {
+      siswas.value = response.data.data;
+      siswaCount.value = response.data.count; // Assuming the count value is provided in the response as `count`
+    })
+    .catch((error) => {
+      console.log(error.response.data);
     });
+});
+
 
     return {
       siswas,
