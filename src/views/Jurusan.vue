@@ -59,21 +59,14 @@
                         >
                           <a href="#" class="datatable-sorter" style="text-align: left;">Nama Jurusan</a>
                         </th>
-                        <th
-                          data-sortable="true"
-                        >
-                          <a href="#">Aksi</a>
-                        </th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr
-                        v-for="(jrs, Kode_jurusan) in filteredJurusans" :key="Kode_jurusan"
+                        v-for="(jurusan, Kode_jurusan) in filteredJurusans" :key="Kode_jurusan"
                       >
-                        <td style="text-align: left;">{{ jrs.Kode_jurusan }}</td>
-                        <td style="text-align: left;">{{ jrs.Nama_jurusan }}</td>
-                        <td><button type="button" class="btn btn-warning rounded-pill">Edit</button></td>
-
+                        <td style="text-align: left;">{{ jurusan.Kode_jurusan }}</td>
+                        <td style="text-align: left;">{{ jurusan.Nama_jurusan }}</td>
                       </tr>
                     </tbody>
                   </table>

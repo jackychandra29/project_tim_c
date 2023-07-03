@@ -76,17 +76,18 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-for="(stf, ID_staff)  in filteredStaffs" :key="ID_staff">
-                                                <td style="text-align: left;">{{ stf.ID_staff }}</td>
-                                                <td style="text-align: left;">{{ stf.NUPTK }}</td>
-                                                <td style="text-align: left;">{{ stf.Nama_lengkap }}</td>
-                                                <td style="text-align: left;">{{ stf.NIK }}</td>
-                                                <td style="text-align: left;">{{ stf.NIP }}</td>
-                                                <td style="text-align: left;">{{ stf.Jenis_kelamin }}</td>
-                                                <td style="text-align: left;">{{ stf.Tanggal_lahir }}</td>
-                                                <td style="text-align: left;">{{ stf.Induk }}</td>
-                                                <td><button type="button" class="btn btn-warning rounded-pill">Edit</button>
-                                                </td>
+                                            <tr v-for="(staff, ID_staff)  in filteredStaffs" :key="ID_staff">
+                                                <td style="text-align: left;">{{ staff.ID_staff }}</td>
+                                                <td style="text-align: left;">{{ staff.NUPTK }}</td>
+                                                <td style="text-align: left;">{{ staff.Nama_lengkap }}</td>
+                                                <td style="text-align: left;">{{ staff.NIK }}</td>
+                                                <td style="text-align: left;">{{ staff.NIP }}</td>
+                                                <td style="text-align: left;">{{ staff.Jenis_kelamin }}</td>
+                                                <td style="text-align: left;">{{ staff.Tanggal_lahir }}</td>
+                                                <td style="text-align: left;">{{ staff.Induk }}</td>
+                                                <td>
+                          <router-link :to="`/staffSMK/edit/${staff.ID_staff}`" class="btn btn-primary">Edit</router-link>
+                        </td>
                                             </tr>
                                         </tbody>
                                     </table>

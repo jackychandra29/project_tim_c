@@ -84,26 +84,19 @@
                         >
                           <a href="#" class="datatable-sorter" style="text-align: left;">Kode Jenis Ruang</a>
                         </th>
-                        <th
-                          data-sortable="true"
-                        >
-                          <a href="#">Aksi</a>
-                        </th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr
-                        v-for="(rg, Kode_ruang) in filteredRuangs" :key="Kode_ruang"
+                        v-for="(ruang, Kode_ruang) in filteredRuangs" :key="Kode_ruang"
                       >
-                        <td style="text-align: left;">{{ rg.Kode_ruang }}</td>
-                        <td style="text-align: left;">{{ rg.Nama_ruang }}</td>
-                        <td style="text-align: left;">{{ rg.Panjang }}</td>
-                        <td style="text-align: left;">{{ rg.Lebar }}</td>
-                        <td style="text-align: left;">{{ rg.Lantai }}</td>
-                        <td style="text-align: left;">{{ rg.Kode_bangunan }}</td>
-                        <td style="text-align: left;">{{ rg.Kode_jenis_ruang }}</td>
-                        <td><button type="button" class="btn btn-warning rounded-pill">Edit</button></td>
-
+                        <td style="text-align: left;">{{ ruang.Kode_ruang }}</td>
+                        <td style="text-align: left;">{{ ruang.Nama_ruang }}</td>
+                        <td style="text-align: left;">{{ ruang.Panjang }}</td>
+                        <td style="text-align: left;">{{ ruang.Lebar }}</td>
+                        <td style="text-align: left;">{{ ruang.Lantai }}</td>
+                        <td style="text-align: left;">{{ ruang.Kode_bangunan }}</td>
+                        <td style="text-align: left;">{{ ruang.Kode_jenis_ruang }}</td>
                       </tr>
                     </tbody>
                   </table>

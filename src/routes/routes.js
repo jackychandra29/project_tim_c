@@ -10,12 +10,19 @@ import Rombel from '../views/Rombel';
 import AdminSMK from '../views/AdminSMK';
 import Register from '../components/Register';
 import Login from '../components/Login';
-import EditSekolah from '../views/EditSekolah.vue';
 import JurusanSMK from '../views/jurusanSMK';
 import SiswaSMK from '../views/siswaSMK';
 import RuangSMK from '../views/ruangSMK';
 import StaffSMK from '../views/staffSMK';
 import RombelSMK from '../views/rombelSMK';
+
+//edit
+import SekolahEdit from '../views/SekolahEdit.vue';
+import JurusanEditSMK from '../views/JurusanEditSMK.vue';
+import StaffEditSMK from '../views/StaffEditSMK.vue';
+import SiswaEditSMK from '../views/SiswaEditSMK.vue';
+import RombelEditSMK from '../views/RombelEditSMK.vue';
+import RuangEditSMK from '../views/RuangEditSMK.vue';
 
 const routes = [
     {
@@ -44,9 +51,39 @@ const routes = [
         component: Sekolah
     },
     {
+      name: 'sekolah.edit',
+      path: '/edit/:NPSN',
+      component: SekolahEdit,
+    },
+    {
         name: 'Jurusan',
         path: '/jurusan',
         component: Jurusan
+    },
+    {
+      name: 'staff.edit',
+      path: '/staffSMK/edit/:ID_staff',
+      component: StaffEditSMK,
+    },
+    {
+      name: 'jurusan.edit',
+      path: '/jurusanSMK/edit/:Kode_jurusan',
+      component: JurusanEditSMK,
+    },
+    {
+      name: 'siswa.edit',
+      path: '/siswaSMK/edit/:ID',
+      component: SiswaEditSMK,
+    },
+    {
+      name: 'rombel.edit',
+      path: '/rombelSMK/edit/:Kode_rombel',
+      component: RombelEditSMK,
+    },
+    {
+      name: 'ruang.edit',
+      path: '/ruangSMK/edit/:Kode_ruang',
+      component: RuangEditSMK,
     },
     {
         name: 'Ruang',
@@ -68,11 +105,6 @@ const routes = [
         path: '/rombel',
         component: Rombel
     },
-  {
-    name: 'sekolah.edit',
-    path: '/edit/:NPSN',
-    component: EditSekolah,
-  },
   {
     name: 'jurusanSMK',
     path: '/jurusanSMK',

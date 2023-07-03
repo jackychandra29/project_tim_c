@@ -75,18 +75,18 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(rbl, Kode_rombel)  in filteredRombels" :key="Kode_rombel">
-                        <td style="text-align: left;">{{ rbl.Kode_rombel }}</td>
-                        <td style="text-align: left;">{{ rbl.Nama_rombel }}</td>
-                        <td style="text-align: left;">{{ rbl.Tingkat }}</td>
-                        <td style="text-align: left;">{{ rbl.Semester }}</td>
-                        <td style="text-align: left;">{{ rbl.Tahun_pelajaran }}</td>
-                        <td style="text-align: left;">{{ rbl.Kurikulum }}</td>
-                        <td style="text-align: left;">{{ rbl.Kode_ruang }}</td>
-                        <td style="text-align: left;">{{ rbl.ID_staff }}</td>
-                        <td style="text-align: left;">{{ rbl.Jurusan_SP_ID }}</td>
-                        <td><button type="button" class="btn btn-warning rounded-pill">Edit</button></td>
-
+                      <tr v-for="(rombel, Kode_rombel)  in filteredRombels" :key="Kode_rombel">
+                        <td style="text-align: left;">{{ rombel.Kode_rombel }}</td>
+                        <td style="text-align: left;">{{ rombel.Nama_rombel }}</td>
+                        <td style="text-align: left;">{{ rombel.Tingkat }}</td>
+                        <td style="text-align: left;">{{ rombel.Semester }}</td>
+                        <td style="text-align: left;">{{ rombel.Tahun_pelajaran }}</td>
+                        <td style="text-align: left;">{{ rombel.Kurikulum }}</td>
+                        <td style="text-align: left;">{{ rombel.Kode_ruang }}</td>
+                        <td style="text-align: left;">{{ rombel.ID_staff }}</td>
+                        <td style="text-align: left;">{{ rombel.Jurusan_SP_ID }}</td><td>
+                          <router-link :to="`/rombelSMK/edit/${rombel.Kode_rombel}`" class="btn btn-primary">Edit</router-link>
+                        </td>
                       </tr>
                     </tbody>
                   </table>

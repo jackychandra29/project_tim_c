@@ -8,7 +8,6 @@
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
           <li class="breadcrumb-item"><a href="/siswa">Siswa</a></li>
-
         </ol>
       </nav>
     </div>
@@ -34,7 +33,7 @@
                       entries per page
                     </label>
                   </div>
-                  <div class="datatable-search" >
+                  <div class="datatable-search">
                     <input class="datatable-input" placeholder="Search..." type="search" title="Search within table" />
                   </div>
                 </div>
@@ -66,29 +65,24 @@
                         <th data-sortable="true">
                           <a href="#" class="datatable-sorter" style="text-align: left;">NPSN</a>
                         </th>
-                        <th data-sortable="true">
-                          <a href="#">Aksi</a>
-                        </th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(ssw, ID) in filteredSiswas" :key="ID">
-                        <td style="text-align: left;">{{ ssw.ID }}</td>
-                        <td style="text-align: left;">{{ ssw.NISN }}</td>
-                        <td style="text-align: left;">{{ ssw.NIK }}</td>
-                        <td style="text-align: left;">{{ ssw.Nama_lengkap }}</td>
-                        <td style="text-align: left;">{{ ssw.Jenis_kelamin }}</td>
-                        <td style="text-align: left;">{{ ssw.Tanggal_lahir }}</td>
-                        <td style="text-align: left;">{{ ssw.Nama_ibuKandung }}</td>
-                        <td style="text-align: left;">{{ ssw.NPSN }}</td>
-                        <td><button type="button" class="btn btn-warning rounded-pill">Edit</button></td>
-
+                      <tr v-for="(siswa, ID) in filteredSiswas" :key="ID">
+                        <td style="text-align: left;">{{ siswa.ID }}</td>
+                        <td style="text-align: left;">{{ siswa.NISN }}</td>
+                        <td style="text-align: left;">{{ siswa.NIK }}</td>
+                        <td style="text-align: left;">{{ siswa.Nama_lengkap }}</td>
+                        <td style="text-align: left;">{{ siswa.Jenis_kelamin }}</td>
+                        <td style="text-align: left;">{{ siswa.Tanggal_lahir }}</td>
+                        <td style="text-align: left;">{{ siswa.Nama_ibuKandung }}</td>
+                        <td style="text-align: left;">{{ siswa.NPSN }}</td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
                 <div class="datatable-bottom">
-                  <div class="datatable-info">Showing 1 to 5 of 5 entries</div>
+                  <div class="datatable-info">Showing 1 to {{ selectedOption }} of {{ siswas.length }} entries</div>
                   <nav class="datatable-pagination">
                     <ul class="datatable-pagination-list"></ul>
                   </nav>
@@ -121,43 +115,29 @@ export default {
   setup() {
     //reactive state
     let siswas = ref([]);
-    const selectedOption = ref('20');
+    const selectedOption = ref('10');
 
     const filteredSiswas = computed(() => {
-            const limit = parseInt(selectedOption.value);
-            return siswas.value.slice(0, limit);
-        });
+      const limit = parseInt(selectedOption.value);
+      return siswas.value.slice(0, limit);
+    });
+
     //mounted
     onMounted(() => {
       //get API from Laravel Backend
       axios
         .get("http://localhost:8000/api/siswa")
         .then((response) => {
-          //asign state siswas with response data
+          //assign state siswas with response data
           siswas.value = response.data.data;
         })
         .catch((error) => {
           console.log(error.response.data);
         });
     });
-    //method delete
-    // function siswaDelete(id) {
-    //   //delete data siswa by ID
-    //   axios
-    //     .delete(`http://localhost:8000/api/siswa/${id}`)
-    //     .then(() => {
-    //       //splice siswas
-    //       siswas.value.splice(siswas.value.indexOf(id), 1);
-    //     })
-    //     .catch((error) => {
-    //       console.log(error.response.data);
-    //     });
-    // }
 
-    //return
     return {
       siswas,
-      // siswaDelete,
       selectedOption,
       filteredSiswas,
     };

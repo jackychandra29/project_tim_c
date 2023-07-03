@@ -54,11 +54,12 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(jrs, Kode_jurusan) in filteredJurusans" :key="Kode_jurusan">
-                        <td style="text-align: left;">{{ jrs.Kode_jurusan }}</td>
-                        <td style="text-align: left;">{{ jrs.Nama_jurusan }}</td>
-                        <td><button type="button" class="btn btn-warning rounded-pill">Edit</button></td>
-
+                      <tr v-for="(jurusan, Kode_jurusan) in filteredJurusans" :key="Kode_jurusan">
+                        <td style="text-align: left;">{{ jurusan.Kode_jurusan }}</td>
+                        <td style="text-align: left;">{{ jurusan.Nama_jurusan }}</td>
+                        <td>
+                          <router-link :to="`/jurusanSMK/edit/${jurusan.Kode_jurusan}`" class="btn btn-primary">Edit</router-link>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
