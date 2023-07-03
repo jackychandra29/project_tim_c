@@ -33,9 +33,9 @@
                       entries per page
                     </label>
                   </div>
-                  <div class="datatable-search">
+                  <!-- <div class="datatable-search">
                     <input class="datatable-input" placeholder="Search..." type="search" title="Search within table" />
-                  </div>
+                  </div> -->
                 </div>
                 <div class="datatable-container">
                   <table class="table datatable datatable-table">
