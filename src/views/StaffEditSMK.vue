@@ -193,7 +193,7 @@ export default {
         })
         .then(() => {
           console.log('Data staff berhasil diperbarui');
-          router.push({ name: 'Staff' });
+          router.push({ name: 'staffSMK' });
         })
         .catch((error) => {
           console.log(error.response.data);

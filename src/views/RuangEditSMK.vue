@@ -178,7 +178,7 @@ export default {
         })
         .then(() => {
           console.log('Data ruang berhasil diperbarui');
-          router.push({ name: 'Ruang' });
+          router.push({ name: 'ruangSMK' });
         })
         .catch((error) => {
           console.log(error.response.data);

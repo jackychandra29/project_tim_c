@@ -207,7 +207,7 @@ export default {
         })
         .then(() => {
           console.log('Data rombel berhasil diperbarui');
-          router.push({ name: 'Rombel' });
+          router.push({ name: 'rombelSMK' });
         })
         .catch((error) => {
           console.log(error.response.data);

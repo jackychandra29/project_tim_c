@@ -191,7 +191,7 @@ export default {
         })
         .then(() => {
           console.log('Data siswa berhasil diperbarui');
-          router.push({ name: 'Siswa' });
+          router.push({ name: 'siswaSMK' });
         })
         .catch((error) => {
           console.log(error.response.data);
