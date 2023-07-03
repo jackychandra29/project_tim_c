@@ -36,6 +36,7 @@
                   </div>
                   <div class="datatable-search">
                     <input class="datatable-input" placeholder="Search..." type="search" title="Search within table" />
+                    <router-link :to="'/tambahrombel'" class="btn btn-primary rounded-pill">Tambah Data</router-link>
                   </div>
                 </div>
                 <div class="datatable-container">
