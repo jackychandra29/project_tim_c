@@ -17,6 +17,12 @@ import StaffSMK from '../views/staffSMK';
 import RombelSMK from '../views/rombelSMK';
 import profil from "../views/profil";
 
+import TambahJurusan from '../views/TambahJurusan.vue';
+import TambahRombel from '../views/TambahRombel.vue';
+import TambahRuang from '../views/TambahRuang.vue';
+import TambahSekolah from '../views/TambahSP.vue';
+import TambahStaff from '../views/TambahStaff.vue';
+
 //edit
 import SekolahEdit from '../views/SekolahEdit.vue';
 import JurusanEditSMK from '../views/JurusanEditSMK.vue';
@@ -24,6 +30,7 @@ import StaffEditSMK from '../views/StaffEditSMK.vue';
 import SiswaEditSMK from '../views/SiswaEditSMK.vue';
 import RombelEditSMK from '../views/RombelEditSMK.vue';
 import RuangEditSMK from '../views/RuangEditSMK.vue';
+import TambahSiswa from '../views/TambahSiswa.vue'
 
 const routes = [
     {
@@ -136,6 +143,36 @@ const routes = [
     path: '/rombelSMK',
     component: RombelSMK,
   },
+  {
+    name: 'TambahJurusan',
+    path: '/tambahjurusan',
+    component: TambahJurusan
+},
+{
+  name: 'TambahRombel',
+  path: '/tambahrombel',
+  component: TambahRombel
+},
+{
+  name: 'TambahRuang',
+  path: '/tambahruang',
+  component: TambahRuang
+},
+{
+  name: 'TambahSekolah',
+  path: '/tambahsekolah',
+  component: TambahSekolah
+},
+{
+  name: 'TambahSiswa',
+  path: '/tambahsiswa',
+  component: TambahSiswa
+},
+{
+  name: 'TambahStaff',
+  path: '/tambahstaff',
+  component: TambahStaff
+},
 ];
 
 const router = createRouter({
