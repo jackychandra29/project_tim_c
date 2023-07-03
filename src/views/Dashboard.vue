@@ -10,100 +10,54 @@
 
     <section class="section dashboard">
       <div class="row">
-        <!-- Left side columns -->
         <div class="col-lg-8">
           <div class="row">
             <!-- Negeri Card -->
             <div class="col-xxl-4 col-md-6">
               <div class="card info-card sales-card">
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                  </ul>
-                </div>
-
                 <div class="card-body">
                   <h5 class="card-title" style="font-size: 15px">
-                    Negeri <span>|</span><span style="font-size: 11px">Jumlah SMK Negeri</span>
+                    Siswa <span>|</span><span style="font-size: 11px"> Jumlah Siswa</span>
                   </h5>
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-cart"></i>
+                      <i class="bi bi-person-video3"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>145</h6>
-                      <span class="text-success small pt-1 fw-bold">12%</span>
-                      <span class="text-muted small pt-2 ps-1">increase</span>
+                      <h6 style="font-size: 24px;">{{ siswas.length }}</h6>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <!-- End Sales Card -->
 
-            <!-- Swasta Card -->
-            <div class="col-xxl-4 col-md-6">
-              <div class="card info-card revenue-card">
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                  </ul>
-                </div>
-
-                <div class="card-body">
-                  <h5 class="card-title" style="font-size: 15px">
-                    Swasta <span>|</span><span style="font-size: 11px"> Jumlah SMK Swasta</span>
-                  </h5>
-
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-currency-dollar"></i>
+                    <!-- Negeri Card -->
+                    <div class="col-xxl-4 col-md-6">
+                      <div class="card info-card sales-card">
+                        <div class="card-body">
+                          <h5 class="card-title" style="font-size: 15px">
+                            Sekolah <span>|</span><span style="font-size: 11px"> Jumlah Sekolah</span>
+                          </h5>
+        
+                          <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                              <i class="bi bi-building-fill-up"></i>
+                            </div>
+                            <div class="ps-3">
+                              <h6 style="font-size: 24px;">{{ sekolahs.length }}</h6>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <div class="ps-3">
-                      <h6>$3,264</h6>
-                      <span class="text-success small pt-1 fw-bold">8%</span>
-                      <span class="text-muted small pt-2 ps-1">increase</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- End Revenue Card -->
 
-            <!-- Jurusan Card -->
+                            <!-- Negeri Card -->
             <div class="col-xxl-4 col-md-6">
               <div class="card info-card sales-card">
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                  </ul>
-                </div>
-
                 <div class="card-body">
                   <h5 class="card-title" style="font-size: 15px">
-                    Jurusan <span>|</span><span style="font-size: 11px"> Jumlah Jurusan SMK</span>
+                    Staff <span>|</span><span style="font-size: 11px"> Jumlah Staff</span>
                   </h5>
 
                   <div class="d-flex align-items-center">
@@ -111,165 +65,80 @@
                       <i class="bi bi-cart"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>145</h6>
-                      <span class="text-success small pt-1 fw-bold">12%</span>
-                      <span class="text-muted small pt-2 ps-1">increase</span>
+                      <h6 style="font-size: 24px;">{{ staffs.length }}</h6>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <!-- End Sales Card -->
 
-            <!-- Pendidik Card -->
+                    <!-- Negeri Card -->
+                    <div class="col-xxl-4 col-md-6">
+                      <div class="card info-card sales-card">
+                        <div class="card-body">
+                          <h5 class="card-title" style="font-size: 15px">
+                            Jurusan <span>|</span><span style="font-size: 11px"> Jumlah Jurusan</span>
+                          </h5>
+        
+                          <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                              <i class="bi bi-vector-pen"></i>
+                            </div>
+                            <div class="ps-3">
+                              <h6 style="font-size: 24px;">{{ jurusans.length }}</h6>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                            <!-- Negeri Card -->
             <div class="col-xxl-4 col-md-6">
-              <div class="card info-card revenue-card">
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                  </ul>
-                </div>
-
+              <div class="card info-card sales-card">
                 <div class="card-body">
                   <h5 class="card-title" style="font-size: 15px">
-                    Pendidik <span>|</span><span style="font-size: 11px"> Jumlah Pendidik</span>
+                    Rombel <span>|</span><span style="font-size: 11px"> Jumlah Rombel</span>
                   </h5>
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-currency-dollar"></i>
+                      <i class="bi bi-diagram-3"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>$3,264</h6>
-                      <span class="text-success small pt-1 fw-bold">8%</span>
-                      <span class="text-muted small pt-2 ps-1">increassse</span>
+                      <h6 style="font-size: 24px;">{{ rombels.length }}</h6>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <!-- End Revenue Card -->
 
-            <!-- Reports -->
-            <div class="col-12">
-              <div class="card">
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <!-- End Reports -->
+                    <!-- Negeri Card -->
+                    <div class="col-xxl-4 col-md-6">
+                      <div class="card info-card sales-card">
+                        <div class="card-body">
+                          <h5 class="card-title" style="font-size: 15px">
+                            Ruang <span>|</span><span style="font-size: 11px"> Jumlah Ruangan</span>
+                          </h5>
+        
+                          <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                              <i class="bi bi-house-up"></i>
+                            </div>
+                            <div class="ps-3">
+                              <h6 style="font-size: 24px;">{{ ruangs.length }}</h6>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+            <!-- End Sales Card -->
           </div>
         </div>
-        <!-- End Left side columns -->
-
-        <!-- Right side columns -->
-        <div class="col-lg-4">
-          <!-- Recent Activity -->
-          <div class="card">
-            <div class="filter">
-              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                <li class="dropdown-header text-start">
-                  <h6>Filter</h6>
-                </li>
-
-                <li><a class="dropdown-item" href="#">Today</a></li>
-                <li><a class="dropdown-item" href="#">This Month</a></li>
-                <li><a class="dropdown-item" href="#">This Year</a></li>
-              </ul>
-            </div>
-
-            <div class="card-body">
-              <h5 class="card-title">Recent Activity <span>| Today</span></h5>
-
-              <div class="activity">
-                <div class="activity-item d-flex">
-                  <div class="activite-label">32 min</div>
-                  <i class="bi bi-circle-fill activity-badge text-success align-self-start"></i>
-                  <div class="activity-content">
-                    Quia quae rerum
-                    <a href="#" class="fw-bold text-dark">explicabo officiis</a>
-                    beatae
-                  </div>
-                </div>
-                <!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">56 min</div>
-                  <i class="bi bi-circle-fill activity-badge text-danger align-self-start"></i>
-                  <div class="activity-content">
-                    Voluptatem blanditiis blanditiis eveniet
-                  </div>
-                </div>
-                <!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">2 hrs</div>
-                  <i class="bi bi-circle-fill activity-badge text-primary align-self-start"></i>
-                  <div class="activity-content">
-                    Voluptates corrupti molestias voluptatem
-                  </div>
-                </div>
-                <!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">1 day</div>
-                  <i class="bi bi-circle-fill activity-badge text-info align-self-start"></i>
-                  <div class="activity-content">
-                    Tempore autem saepe
-                    <a href="#" class="fw-bold text-dark">occaecati voluptatem</a>
-                    tempore
-                  </div>
-                </div>
-                <!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">2 days</div>
-                  <i class="bi bi-circle-fill activity-badge text-warning align-self-start"></i>
-                  <div class="activity-content">
-                    Est sit eum reiciendis exercitationem
-                  </div>
-                </div>
-                <!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">4 weeks</div>
-                  <i class="bi bi-circle-fill activity-badge text-muted align-self-start"></i>
-                  <div class="activity-content">
-                    Dicta dolorem harum nulla eius. Ut quidem quidem sit quas
-                  </div>
-                </div>
-                <!-- End activity item-->
-              </div>
-            </div>
-          </div>
-          <!-- End Recent Activity -->
-        </div>
-        <!-- End Right side columns -->
       </div>
 
       <div>
         <h1>{{ user.name }}</h1>
         <h1>{{ user.email}}</h1>
-
-
       </div>
     </section>
   </main>
@@ -277,10 +146,14 @@
 </template>
 
 <script>
+
+  import axios from "axios";
+import { onMounted, ref, computed } from "vue";
+
 import Header from '../components/Header.vue'
 import Sidebar from '../components/Sidebar.vue'
 import Footer from '../components/Footer.vue'
-import { ref, onMounted, computed } from "vue";
+
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 
@@ -294,6 +167,30 @@ export default {
   setup() {
 
     let user = ref([]);
+    
+    //siswa
+    let siswas = ref([]);
+    let siswaCount = ref(0);
+
+    //sekolah
+    let sekolahs = ref([]);
+    let sekolahCount = ref(0);
+
+    //staff
+    let staffs = ref([]);
+    let staffCount = ref(0);
+
+    //jurusan
+    let jurusans = ref([]);
+    let jurusanCount = ref(0);
+
+    //rombel
+    let rombels = ref([]);
+    let rombelCount = ref(0);
+
+    //ruang
+    let ruangs = ref([]);
+    let ruangCount = ref(0);
 
     const store = useStore(); // Menggunakan useStore() untuk mendapatkan instance store
     const router = useRouter();
@@ -306,8 +203,70 @@ export default {
     //   return store.getters.user;
     // });
 
-    onMounted(async () => {
-      if (loggedIn.value) {
+    onMounted( () => {
+
+      //get API from Laravel Backend
+      axios
+    .get("http://localhost:8000/api/siswa")
+    .then((response) => {
+      siswas.value = response.data.data;
+      siswaCount.value = response.data.count; // Assuming the count value is provided in the response as `count`
+    })
+    .catch((error) => {
+      console.log(error.response.data);
+    });
+
+    axios
+    .get("http://localhost:8000/api/sekolah")
+    .then((response) => {
+      sekolahs.value = response.data.data;
+      sekolahCount.value = response.data.count; // Assuming the count value is provided in the response as `count`
+    })
+    .catch((error) => {
+      console.log(error.response.data);
+    });
+
+    axios
+    .get("http://localhost:8000/api/staff")
+    .then((response) => {
+      staffs.value = response.data.data;
+      staffCount.value = response.data.count; // Assuming the count value is provided in the response as `count`
+    })
+    .catch((error) => {
+      console.log(error.response.data);
+    });
+
+    axios
+    .get("http://localhost:8000/api/jurusan")
+    .then((response) => {
+      jurusans.value = response.data.data;
+      jurusanCount.value = response.data.count; // Assuming the count value is provided in the response as `count`
+    })
+    .catch((error) => {
+      console.log(error.response.data);
+    });
+
+    axios
+    .get("http://localhost:8000/api/rombel")
+    .then((response) => {
+      rombels.value = response.data.data;
+      rombelCount.value = response.data.count; // Assuming the count value is provided in the response as `count`
+    })
+    .catch((error) => {
+      console.log(error.response.data);
+    });
+
+    axios
+    .get("http://localhost:8000/api/ruang")
+    .then((response) => {
+      ruangs.value = response.data.data;
+      ruangCount.value = response.data.count; // Assuming the count value is provided in the response as `count`
+    })
+    .catch((error) => {
+      console.log(error.response.data);
+    });
+
+    if (loggedIn.value) {
         // Tidak perlu melakukan axios.get untuk mengambil data pengguna karena data sudah ada di Vuex
         user.value = store.getters.user;
         console.log(user.value);
@@ -316,7 +275,19 @@ export default {
       }
     });
     return {
-      user
+      user,
+    siswas,
+      siswaCount,
+      sekolahs,
+      sekolahCount,
+      staffs,
+      staffCount,
+      jurusans,
+      jurusanCount,
+      rombels,
+      rombelCount,
+      ruangs,
+      ruangCount,
     }
   },
 };
