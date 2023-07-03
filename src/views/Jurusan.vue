@@ -20,13 +20,11 @@
           <div class="card">
             <div class="card-body">
               <!-- Table with stripped rows -->
-              <div
-                class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns"
-              >
+              <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
                 <div class="datatable-top">
                   <div class="datatable-dropdown">
                     <label>
-                      <select class="datatable-selector" v-model="selectedOption" >
+                      <select class="datatable-selector" v-model="selectedOption">
                         <option value="5">5</option>
                         <option value="10" selected="">10</option>
                         <option value="15">15</option>
@@ -36,35 +34,22 @@
                       entries per page
                     </label>
                   </div>
-                  <!-- <div class="datatable-search">
-                    <input
-                      class="datatable-input"
-                      placeholder="Search..."
-                      type="search"
-                      title="Search within table"
-                    />
-                  </div> -->
+
                 </div>
                 <div class="datatable-container">
                   <table class="table datatable datatable-table">
                     <thead>
                       <tr>
-                        <th
-                          data-sortable="true"
-                        >
+                        <th data-sortable="true">
                           <a href="#" class="datatable-sorter" style="text-align: left;">Kode Jurusan</a>
                         </th>
-                        <th
-                          data-sortable="true"
-                        >
+                        <th data-sortable="true">
                           <a href="#" class="datatable-sorter" style="text-align: left;">Nama Jurusan</a>
                         </th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr
-                        v-for="(jurusan, Kode_jurusan) in filteredJurusans" :key="Kode_jurusan"
-                      >
+                      <tr v-for="(jurusan, Kode_jurusan) in paginated" :key="Kode_jurusan">
                         <td style="text-align: left;">{{ jurusan.Kode_jurusan }}</td>
                         <td style="text-align: left;">{{ jurusan.Nama_jurusan }}</td>
                       </tr>
@@ -72,9 +57,15 @@
                   </table>
                 </div>
                 <div class="datatable-bottom">
-                  <div class="datatable-info">Showing 1 to 5 of 5 entries</div>
+                  <!-- <div class="datatable-info">Showing {{ paginatedJurusans.startIndex }} to {{ paginatedJurusans.endIndex }} of {{ totalPages }} entries
+                    <button @click="goToNextPage">Next Page</button>
+                  </div> -->
                   <nav class="datatable-pagination">
-                    <ul class="datatable-pagination-list"></ul>
+                    <ul class="datatable-pagination-list">
+                      <li v-for="page in displayedPages" :key="page" :class="{ active: currentPage === page }">
+                        <a @click="goToPage(page)">{{ page }}</a>
+                      </li>
+                    </ul>
                   </nav>
                 </div>
               </div>
@@ -90,7 +81,7 @@
 
 <script>
 import axios from "axios";
-import { onMounted, ref , computed} from "vue";
+import { onMounted, ref, computed } from "vue";
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import Header from '../components/Header.vue'
@@ -103,16 +94,50 @@ export default {
     Sidebar,
     Footer,
   },
+
   setup() {
     //reactive state
     let jurusans = ref([]);
-    const selectedOption = ref('20');
+    const selectedOption = ref('10');
     let user = ref([]);
+    const currentPage = ref(1);
+    const visiblePages = ref(5);
 
-    const filteredJurusans = computed(() => {
-      const limit = parseInt(selectedOption.value);
-      return jurusans.value.slice(0, limit);
+    const displayedPages = computed(() => {
+      const startPage = Math.max(1, currentPage.value - Math.floor(visiblePages.value / 2));
+      const endPage = Math.min(startPage + visiblePages.value - 1, totalPages.value);
+      const pages = Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index);
+
+      if (pages.length < visiblePages.value) {
+        const diff = visiblePages.value - pages.length;
+        const newStartPage = Math.max(1, startPage - diff);
+        return Array.from({ length: visiblePages.value }, (_, index) => newStartPage + index);
+      }
+
+      return pages;
     });
+
+    const totalPages = computed(() => {
+      const limit = parseInt(selectedOption.value);
+      return Math.ceil(jurusans.value.length / limit);
+    });
+
+    const goToPage = (page) => {
+      currentPage.value = page;
+    };
+
+    const paginated = computed(() => {
+      const limit = parseInt(selectedOption.value);
+      const startIndex = (currentPage.value - 1) * limit;
+      const endIndex = startIndex + limit;
+      return jurusans.value.slice(startIndex, endIndex);
+    });
+
+    // const filteredJurusans = computed(() => {
+    //   return jurusans.value.slice(0, 10);
+    // });
+
+
 
     const store = useStore(); // Menggunakan useStore() untuk mendapatkan instance store
     const router = useRouter();
@@ -134,14 +159,14 @@ export default {
           console.log(error.response.data);
         });
 
-        if (loggedIn.value) {
+      if (loggedIn.value) {
         // Tidak perlu melakukan axios.get untuk mengambil data pengguna karena data sudah ada di Vuex
         user.value = store.getters.user;
         console.log(user.value);
       } else {
         router.push({ name: 'Login' });
       }
-        
+
     });
     //method delete
     // function jurusanDelete(id) {
@@ -163,9 +188,14 @@ export default {
       // jurusanDelete,
       user,
       selectedOption,
-      filteredJurusans,
+      paginated,
+      totalPages,
+      goToPage,
+      displayedPages,
+      visiblePages,
+      currentPage
     };
   },
-  
+
 };
 </script>
