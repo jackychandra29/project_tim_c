@@ -34,6 +34,9 @@
                       entries per page
                     </label>
                   </div>
+                  <div class="datatable-search">
+                    <router-link :to="'/tambahjurusan'" class="btn btn-primary rounded-pill">Tambah Data</router-link>
+                  </div>
 
                 </div>
                 <div class="datatable-container">

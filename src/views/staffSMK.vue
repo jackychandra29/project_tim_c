@@ -34,79 +34,80 @@
                                         </label>
                                     </div>
 
-                                            <router-link :to="'/tambahstaff'" class="btn btn-primary rounded-pill">Tambah Data</router-link>
+                                    <div class="datatable-search">
+                                        <router-link :to="'/tambahstaff'" class="btn btn-primary rounded-pill">Tambah Data</router-link>
                                     </div>
+                                </div>
 
-                                </div>
-                                <div class="datatable-container">
-                                    <table class="table datatable datatable-table">
-                                        <thead>
-                                            <tr>
-                                                <th data-sortable="true">
-                                                    <a href="#" class="datatable-sorter" style="text-align: left;">ID
-                                                        Staff</a>
-                                                </th>
-                                                <th data-sortable="true">
-                                                    <a href="#" class="datatable-sorter" style="text-align: left;">NUPTK</a>
-                                                </th>
-                                                <th data-sortable="true">
-                                                    <a href="#" class="datatable-sorter" style="text-align: left;">Nama
-                                                        Lengkap</a>
-                                                </th>
-                                                <th data-sortable="true">
-                                                    <a href="#" class="datatable-sorter" style="text-align: left;">NIK</a>
-                                                </th>
-                                                <th data-sortable="true">
-                                                    <a href="#" class="datatable-sorter" style="text-align: left;">NIP</a>
-                                                </th>
-                                                <th data-sortable="true">
-                                                    <a href="#" class="datatable-sorter" style="text-align: left;">Jenis
-                                                        Kelamin</a>
-                                                </th>
-                                                <th data-sortable="true">
-                                                    <a href="#" class="datatable-sorter" style="text-align: left;">Tanggal
-                                                        Lahir</a>
-                                                </th>
-                                                <th data-sortable="true">
-                                                    <a href="#" class="datatable-sorter" style="text-align: left;">Induk</a>
-                                                </th>
-                                                <th data-sortable="true">
-                                                    <a href="#">Aksi</a>
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr v-for="(staff, ID_staff)  in paginated" :key="ID_staff">
-                                                <td style="text-align: left;">{{ staff.ID_staff }}</td>
-                                                <td style="text-align: left;">{{ staff.NUPTK }}</td>
-                                                <td style="text-align: left;">{{ staff.Nama_lengkap }}</td>
-                                                <td style="text-align: left;">{{ staff.NIK }}</td>
-                                                <td style="text-align: left;">{{ staff.NIP }}</td>
-                                                <td style="text-align: left;">{{ staff.Jenis_kelamin }}</td>
-                                                <td style="text-align: left;">{{ staff.Tanggal_lahir }}</td>
-                                                <td style="text-align: left;">{{ staff.Induk }}</td>
-                                                <td>
-                                                    <router-link :to="`/staffSMK/edit/${staff.ID_staff}`"
-                                                        class="btn btn-primary">Edit</router-link>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="datatable-bottom">
-                                    <div class="datatable-info"></div>
-                                    <nav class="datatable-pagination">
-                                        <ul class="datatable-pagination-list">
-                                            <li v-for="page in displayedPages" :key="page"
-                                                :class="{ active: currentPage === page }">
-                                                <a @click="goToPage(page)">{{ page }}</a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </div>
                             </div>
-                            <!-- End Table with stripped rows -->
+                            <div class="datatable-container">
+                                <table class="table datatable datatable-table">
+                                    <thead>
+                                        <tr>
+                                            <th data-sortable="true">
+                                                <a href="#" class="datatable-sorter" style="text-align: left;">ID
+                                                    Staff</a>
+                                            </th>
+                                            <th data-sortable="true">
+                                                <a href="#" class="datatable-sorter" style="text-align: left;">NUPTK</a>
+                                            </th>
+                                            <th data-sortable="true">
+                                                <a href="#" class="datatable-sorter" style="text-align: left;">Nama
+                                                    Lengkap</a>
+                                            </th>
+                                            <th data-sortable="true">
+                                                <a href="#" class="datatable-sorter" style="text-align: left;">NIK</a>
+                                            </th>
+                                            <th data-sortable="true">
+                                                <a href="#" class="datatable-sorter" style="text-align: left;">NIP</a>
+                                            </th>
+                                            <th data-sortable="true">
+                                                <a href="#" class="datatable-sorter" style="text-align: left;">Jenis
+                                                    Kelamin</a>
+                                            </th>
+                                            <th data-sortable="true">
+                                                <a href="#" class="datatable-sorter" style="text-align: left;">Tanggal
+                                                    Lahir</a>
+                                            </th>
+                                            <th data-sortable="true">
+                                                <a href="#" class="datatable-sorter" style="text-align: left;">Induk</a>
+                                            </th>
+                                            <th data-sortable="true">
+                                                <a href="#">Aksi</a>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(staff, ID_staff)  in paginated" :key="ID_staff">
+                                            <td style="text-align: left;">{{ staff.ID_staff }}</td>
+                                            <td style="text-align: left;">{{ staff.NUPTK }}</td>
+                                            <td style="text-align: left;">{{ staff.Nama_lengkap }}</td>
+                                            <td style="text-align: left;">{{ staff.NIK }}</td>
+                                            <td style="text-align: left;">{{ staff.NIP }}</td>
+                                            <td style="text-align: left;">{{ staff.Jenis_kelamin }}</td>
+                                            <td style="text-align: left;">{{ staff.Tanggal_lahir }}</td>
+                                            <td style="text-align: left;">{{ staff.Induk }}</td>
+                                            <td>
+                                                <router-link :to="`/staffSMK/edit/${staff.ID_staff}`"
+                                                    class="btn btn-primary">Edit</router-link>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="datatable-bottom">
+                                <div class="datatable-info"></div>
+                                <nav class="datatable-pagination">
+                                    <ul class="datatable-pagination-list">
+                                        <li v-for="page in displayedPages" :key="page"
+                                            :class="{ active: currentPage === page }">
+                                            <a @click="goToPage(page)">{{ page }}</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
                         </div>
+                        <!-- End Table with stripped rows -->
                     </div>
                 </div>
             </div>

@@ -98,7 +98,7 @@ export default {
   setup() {
     //reactive state
     let jurusans = ref([]);
-    const selectedOption = ref('10');
+    const selectedOption = ref('20');
     let user = ref([]);
     const currentPage = ref(1);
     const visiblePages = ref(5);

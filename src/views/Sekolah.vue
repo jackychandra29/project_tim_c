@@ -33,70 +33,74 @@
                       </select>
                       entries per page
                     </label>
+                    
                   </div>
-
+                  <div class="datatable-search">
                     <router-link :to="'/tambahsekolah'" class="btn btn-primary rounded-pill">Tambah Data</router-link>
                   </div>
 
+                  
                 </div>
-                <div class="datatable-container">
-                  <table class="table datatable datatable-table">
-                    <thead>
-                      <tr>
-                        <th data-sortable="true">
-                          <a href="#" class="datatable-sorter" style="text-align: left;">Kode</a>
-                        </th>
-                        <th data-sortable="true">
-                          <a href="#" class="datatable-sorter" style="text-align: left;">Nama Sekolah</a>
-                        </th>
-                        <th data-sortable="true">
-                          <a href="#" class="datatable-sorter" style="text-align: left;">Bentuk Pendidikan</a>
-                        </th>
-                        <th data-sortable="true">
-                          <a href="#" class="datatable-sorter" style="text-align: left;">Status</a>
-                        </th>
-                        <th data-sortable="true">
-                          <a href="#" class="datatable-sorter" style="text-align: left;">Kode Kecamatan</a>
-                        </th>
-                        <th data-sortable="true">
-                          <a href="#" class="datatable-sorter" style="text-align: left;">Kode Kabupaten Kota</a>
-                        </th>
-                        <th data-sortable="true">
-                          <a href="#">Aksi</a>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="(sekolah, NPSN) in paginated" :key="NPSN">
-                        <td style="text-align: left;">{{ sekolah.NPSN }}</td>
-                        <td style="text-align: left;">{{ sekolah.Nama_SP }}</td>
-                        <td style="text-align: left;">{{ sekolah.Bentuk_pendidikan }}</td>
-                        <td style="text-align: left;">{{ sekolah.Status_sekolah }}</td>
-                        <td style="text-align: left;">{{ sekolah.Kode_kecamatan }}</td>
-                        <td style="text-align: left;">{{ sekolah.Kode_kabKota }}</td>
-                        <td>
-                          <router-link :to="`/edit/${sekolah.NPSN}`" class="btn btn-primary">Edit</router-link>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="datatable-bottom">
-                  <div class="datatable-info"></div>
-                  <nav class="datatable-pagination">
-                    <ul class="datatable-pagination-list">
-                      <li v-for="page in displayedPages" :key="page" :class="{ active: currentPage === page }">
-                        <a @click="goToPage(page)">{{ page }}</a>
-                      </li>
-                    </ul>
-                  </nav>
-                </div>
+
               </div>
-              <!-- End Table with stripped rows -->
+              <div class="datatable-container">
+                <table class="table datatable datatable-table">
+                  <thead>
+                    <tr>
+                      <th data-sortable="true">
+                        <a href="#" class="datatable-sorter" style="text-align: left;">Kode</a>
+                      </th>
+                      <th data-sortable="true">
+                        <a href="#" class="datatable-sorter" style="text-align: left;">Nama Sekolah</a>
+                      </th>
+                      <th data-sortable="true">
+                        <a href="#" class="datatable-sorter" style="text-align: left;">Bentuk Pendidikan</a>
+                      </th>
+                      <th data-sortable="true">
+                        <a href="#" class="datatable-sorter" style="text-align: left;">Status</a>
+                      </th>
+                      <th data-sortable="true">
+                        <a href="#" class="datatable-sorter" style="text-align: left;">Kode Kecamatan</a>
+                      </th>
+                      <th data-sortable="true">
+                        <a href="#" class="datatable-sorter" style="text-align: left;">Kode Kabupaten Kota</a>
+                      </th>
+                      <th data-sortable="true">
+                        <a href="#">Aksi</a>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="(sekolah, NPSN) in paginated" :key="NPSN">
+                      <td style="text-align: left;">{{ sekolah.NPSN }}</td>
+                      <td style="text-align: left;">{{ sekolah.Nama_SP }}</td>
+                      <td style="text-align: left;">{{ sekolah.Bentuk_pendidikan }}</td>
+                      <td style="text-align: left;">{{ sekolah.Status_sekolah }}</td>
+                      <td style="text-align: left;">{{ sekolah.Kode_kecamatan }}</td>
+                      <td style="text-align: left;">{{ sekolah.Kode_kabKota }}</td>
+                      <td>
+                        <router-link :to="`/edit/${sekolah.NPSN}`" class="btn btn-primary">Edit</router-link>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="datatable-bottom">
+                <div class="datatable-info"></div>
+                <nav class="datatable-pagination">
+                  <ul class="datatable-pagination-list">
+                    <li v-for="page in displayedPages" :key="page" :class="{ active: currentPage === page }">
+                      <a @click="goToPage(page)">{{ page }}</a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
             </div>
+            <!-- End Table with stripped rows -->
           </div>
         </div>
       </div>
+
     </section>
   </main>
   <Footer></Footer>
@@ -170,7 +174,7 @@ export default {
         .then((response) => {
           //asign state sekolahs with response data
           sekolahs.value = response.data.data;
-          
+
         })
         .catch((error) => {
           console.log(error.response.data);
