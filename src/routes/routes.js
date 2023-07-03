@@ -15,6 +15,7 @@ import SiswaSMK from '../views/siswaSMK';
 import RuangSMK from '../views/ruangSMK';
 import StaffSMK from '../views/staffSMK';
 import RombelSMK from '../views/rombelSMK';
+import profil from "../views/profil";
 
 //edit
 import SekolahEdit from '../views/SekolahEdit.vue';
@@ -39,6 +40,11 @@ const routes = [
         name: 'Register',
         path: '/register',
         component: Register
+    },
+    {
+      name: 'Profil',
+      path: '/profil',
+      component: profil
     },
     {
         name: 'AdminSMK',
