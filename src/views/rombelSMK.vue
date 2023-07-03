@@ -34,10 +34,10 @@
                       entries per page
                     </label>
                   </div>
-                  <div class="datatable-search">
-                    <input class="datatable-input" placeholder="Search..." type="search" title="Search within table" />
+
                     <router-link :to="'/tambahrombel'" class="btn btn-primary rounded-pill">Tambah Data</router-link>
                   </div>
+
                 </div>
                 <div class="datatable-container">
                   <table class="table datatable datatable-table">
@@ -76,7 +76,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(rombel, Kode_rombel)  in filteredRombels" :key="Kode_rombel">
+                      <tr v-for="(rombel, Kode_rombel)  in paginated" :key="Kode_rombel">
                         <td style="text-align: left;">{{ rombel.Kode_rombel }}</td>
                         <td style="text-align: left;">{{ rombel.Nama_rombel }}</td>
                         <td style="text-align: left;">{{ rombel.Tingkat }}</td>
@@ -85,17 +85,25 @@
                         <td style="text-align: left;">{{ rombel.Kurikulum }}</td>
                         <td style="text-align: left;">{{ rombel.Kode_ruang }}</td>
                         <td style="text-align: left;">{{ rombel.ID_staff }}</td>
-                        <td style="text-align: left;">{{ rombel.Jurusan_SP_ID }}</td><td>
-                          <router-link :to="`/rombelSMK/edit/${rombel.Kode_rombel}`" class="btn btn-primary">Edit</router-link>
+                        <td style="text-align: left;">{{ rombel.Jurusan_SP_ID }}</td>
+                        <td>
+                          <router-link :to="`/rombelSMK/edit/${rombel.Kode_rombel}`"
+                            class="btn btn-primary">Edit</router-link>
                         </td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
                 <div class="datatable-bottom">
-                  <div class="datatable-info">Showing 1 to 5 of 5 entries</div>
+                  <div class="datatable-info"></div>
                   <nav class="datatable-pagination">
-                    <ul class="datatable-pagination-list"></ul>
+                    <ul class="datatable-pagination-list">
+                      <ul>
+                        <li v-for="page in displayedPages" :key="page" :class="{ active: currentPage === page }">
+                          <a @click="goToPage(page)">{{ page }}</a>
+                        </li>
+                      </ul>
+                    </ul>
                   </nav>
                 </div>
               </div>
@@ -130,10 +138,43 @@ export default {
     const selectedOption = ref('20');
     let user = ref([]);
 
-    const filteredRombels = computed(() => {
-      const limit = parseInt(selectedOption.value);
-      return rombels.value.slice(0, limit);
+    const currentPage = ref(1);
+    const visiblePages = ref(5);
+
+    const displayedPages = computed(() => {
+      const startPage = Math.max(1, currentPage.value - Math.floor(visiblePages.value / 2));
+      const endPage = Math.min(startPage + visiblePages.value - 1, totalPages.value);
+      const pages = Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index);
+
+      if (pages.length < visiblePages.value) {
+        const diff = visiblePages.value - pages.length;
+        const newStartPage = Math.max(1, startPage - diff);
+        return Array.from({ length: visiblePages.value }, (_, index) => newStartPage + index);
+      }
+
+      return pages;
     });
+
+    const totalPages = computed(() => {
+      const limit = parseInt(selectedOption.value);
+      return Math.ceil(rombels.value.length / limit);
+    });
+
+    const goToPage = (page) => {
+      currentPage.value = page;
+    };
+
+    const paginated = computed(() => {
+      const limit = parseInt(selectedOption.value);
+      const startIndex = (currentPage.value - 1) * limit;
+      const endIndex = startIndex + limit;
+      return rombels.value.slice(startIndex, endIndex);
+    });
+
+    // const filteredRombels = computed(() => {
+    //   const limit = parseInt(selectedOption.value);
+    //   return rombels.value.slice(0, limit);
+    // });
 
     const store = useStore(); // Menggunakan useStore() untuk mendapatkan instance store
     const router = useRouter();
@@ -182,7 +223,12 @@ export default {
       rombels,
       // rombelDelete,
       selectedOption,
-      filteredRombels,
+      paginated,
+      totalPages,
+      goToPage,
+      displayedPages,
+      visiblePages,
+      currentPage
     };
   },
 };

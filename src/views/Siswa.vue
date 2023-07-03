@@ -33,9 +33,9 @@
                       entries per page
                     </label>
                   </div>
-                  <div class="datatable-search">
+                  <!-- <div class="datatable-search">
                     <input class="datatable-input" placeholder="Search..." type="search" title="Search within table" />
-                  </div>
+                  </div> -->
                 </div>
                 <div class="datatable-container">
                   <table class="table datatable datatable-table">
@@ -68,7 +68,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(siswa, ID) in filteredSiswas" :key="ID">
+                      <tr v-for="(siswa, ID) in paginated" :key="ID">
                         <td style="text-align: left;">{{ siswa.ID }}</td>
                         <td style="text-align: left;">{{ siswa.NISN }}</td>
                         <td style="text-align: left;">{{ siswa.NIK }}</td>
@@ -82,9 +82,15 @@
                   </table>
                 </div>
                 <div class="datatable-bottom">
-                  <div class="datatable-info">Showing 1 to 5 of 5 entries</div>
+
+                  <div class="datatable-info"></div>
+
                   <nav class="datatable-pagination">
-                    <ul class="datatable-pagination-list"></ul>
+                    <ul class="datatable-pagination-list">
+                      <li v-for="page in displayedPages" :key="page" :class="{ active: currentPage === page }">
+                        <a @click="goToPage(page)">{{ page }}</a>
+                      </li>
+                    </ul>
                   </nav>
                 </div>
 
@@ -120,15 +126,47 @@ export default {
   setup() {
     //reactive state
     let siswas = ref([]);
-    let siswaCount = ref(0);
 
+    const selectedOption = ref('20');
 
-    const selectedOption = ref('10');
+    const currentPage = ref(1);
+    const visiblePages = ref(5);
 
-    const filteredSiswas = computed(() => {
-      const limit = parseInt(selectedOption.value);
-      return siswas.value.slice(0, limit);
+    const displayedPages = computed(() => {
+      const startPage = Math.max(1, currentPage.value - Math.floor(visiblePages.value / 2));
+      const endPage = Math.min(startPage + visiblePages.value - 1, totalPages.value);
+      const pages = Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index);
+
+      if (pages.length < visiblePages.value) {
+        const diff = visiblePages.value - pages.length;
+        const newStartPage = Math.max(1, startPage - diff);
+        return Array.from({ length: visiblePages.value }, (_, index) => newStartPage + index);
+      }
+
+      return pages;
     });
+
+
+    const totalPages = computed(() => {
+      const limit = parseInt(selectedOption.value);
+      return Math.ceil(siswas.value.length / limit);
+    });
+
+    const goToPage = (page) => {
+      currentPage.value = page;
+    };
+
+    const paginated = computed(() => {
+      const limit = parseInt(selectedOption.value);
+      const startIndex = (currentPage.value - 1) * limit;
+      const endIndex = startIndex + limit;
+      return siswas.value.slice(startIndex, endIndex);
+    });
+
+    // const filteredSiswas = computed(() => {
+    //   const limit = parseInt(selectedOption.value);
+    //   return siswas.value.slice(0, limit);
+    // });
 
     //mounted
     onMounted(() => {
@@ -147,7 +185,12 @@ export default {
     return {
       siswas,
       selectedOption,
-      filteredSiswas,
+      paginated,
+      totalPages,
+      goToPage,
+      displayedPages,
+      visiblePages,
+      currentPage
     };
   },
 };

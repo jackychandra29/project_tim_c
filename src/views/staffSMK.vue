@@ -7,7 +7,7 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
-                    <li class="breadcrumb-item"><a href="/staff">Staff</a></li>
+                    <li class="breadcrumb-item"><a href="/staffSMK">Staff</a></li>
                 </ol>
             </nav>
         </div>
@@ -33,14 +33,13 @@
                                             entries per page
                                         </label>
                                     </div>
-                                    <div class="datatable-search">
-                                        <input class="datatable-input" placeholder="Search..." type="search"
-                                            title="Search within table" />
+
                                             <router-link :to="'/tambahstaff'" class="btn btn-primary rounded-pill">Tambah Data</router-link>
                                     </div>
+
                                 </div>
                                 <div class="datatable-container">
-                                    <table class="table datatable datatable-table" >
+                                    <table class="table datatable datatable-table">
                                         <thead>
                                             <tr>
                                                 <th data-sortable="true">
@@ -77,7 +76,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-for="(staff, ID_staff)  in filteredStaffs" :key="ID_staff">
+                                            <tr v-for="(staff, ID_staff)  in paginated" :key="ID_staff">
                                                 <td style="text-align: left;">{{ staff.ID_staff }}</td>
                                                 <td style="text-align: left;">{{ staff.NUPTK }}</td>
                                                 <td style="text-align: left;">{{ staff.Nama_lengkap }}</td>
@@ -87,16 +86,22 @@
                                                 <td style="text-align: left;">{{ staff.Tanggal_lahir }}</td>
                                                 <td style="text-align: left;">{{ staff.Induk }}</td>
                                                 <td>
-                          <router-link :to="`/staffSMK/edit/${staff.ID_staff}`" class="btn btn-primary">Edit</router-link>
-                        </td>
+                                                    <router-link :to="`/staffSMK/edit/${staff.ID_staff}`"
+                                                        class="btn btn-primary">Edit</router-link>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
                                 <div class="datatable-bottom">
-                                    <div class="datatable-info">Showing 1 to 5 of 5 entries</div>
+                                    <div class="datatable-info"></div>
                                     <nav class="datatable-pagination">
-                                        <ul class="datatable-pagination-list"></ul>
+                                        <ul class="datatable-pagination-list">
+                                            <li v-for="page in displayedPages" :key="page"
+                                                :class="{ active: currentPage === page }">
+                                                <a @click="goToPage(page)">{{ page }}</a>
+                                            </li>
+                                        </ul>
                                     </nav>
                                 </div>
                             </div>
@@ -131,11 +136,43 @@ export default {
 
         let user = ref([]);
         const selectedOption = ref('20');
+        const currentPage = ref(1);
+        const visiblePages = ref(5);
 
-    const filteredStaffs = computed(() => {
-      const limit = parseInt(selectedOption.value);
-      return staffs.value.slice(0, limit);
-    });
+        const displayedPages = computed(() => {
+            const startPage = Math.max(1, currentPage.value - Math.floor(visiblePages.value / 2));
+            const endPage = Math.min(startPage + visiblePages.value - 1, totalPages.value);
+            const pages = Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index);
+
+            if (pages.length < visiblePages.value) {
+                const diff = visiblePages.value - pages.length;
+                const newStartPage = Math.max(1, startPage - diff);
+                return Array.from({ length: visiblePages.value }, (_, index) => newStartPage + index);
+            }
+
+            return pages;
+        });
+
+        const totalPages = computed(() => {
+            const limit = parseInt(selectedOption.value);
+            return Math.ceil(staffs.value.length / limit);
+        });
+
+        const goToPage = (page) => {
+            currentPage.value = page;
+        };
+
+        const paginated = computed(() => {
+            const limit = parseInt(selectedOption.value);
+            const startIndex = (currentPage.value - 1) * limit;
+            const endIndex = startIndex + limit;
+            return staffs.value.slice(startIndex, endIndex);
+        });
+
+        // const filteredStaffs = computed(() => {
+        //   const limit = parseInt(selectedOption.value);
+        //   return staffs.value.slice(0, limit);
+        // });
 
         const store = useStore(); // Menggunakan useStore() untuk mendapatkan instance store
         const router = useRouter();
@@ -186,7 +223,12 @@ export default {
             // staffDelete,
             user,
             selectedOption,
-            filteredStaffs,
+            paginated,
+            totalPages,
+            goToPage,
+            displayedPages,
+            visiblePages,
+            currentPage
         };
     },
 };
