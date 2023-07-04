@@ -87,9 +87,35 @@
 
                   <nav class="datatable-pagination">
                     <ul class="datatable-pagination-list">
+                      <li v-if="currentPage > 1">
+                        <a @click="goToPage(1)">«</a>
+                      </li>
+
+                      <li v-if="currentPage > 1">
+                        <a @click="goToPage(currentPage - 1)">‹</a>
+                      </li>
+
+                      <li v-if="currentPage > visiblePages">
+                        <span>...</span>
+                      </li>
+
                       <li v-for="page in displayedPages" :key="page" :class="{ active: currentPage === page }">
                         <a @click="goToPage(page)">{{ page }}</a>
                       </li>
+
+                      <li v-if="currentPage < totalPages - visiblePages + 1">
+                        <span>...</span>
+                      </li>
+
+                      <li v-if="currentPage < totalPages">
+                        <a @click="goToPage(currentPage + 1)">›</a>
+                      </li>
+
+                      <li v-if="currentPage < totalPages">
+                        <a @click="goToPage(totalPages)">»</a>
+                      </li>
+
+                      
                     </ul>
                   </nav>
                 </div>
