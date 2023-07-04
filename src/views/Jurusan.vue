@@ -108,13 +108,28 @@ export default {
       const endPage = Math.min(startPage + visiblePages.value - 1, totalPages.value);
       const pages = Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index);
 
-      if (pages.length < visiblePages.value) {
+      if (pages.length < visiblePages.value && endPage === totalPages.value) {
         const diff = visiblePages.value - pages.length;
         const newStartPage = Math.max(1, startPage - diff);
         return Array.from({ length: visiblePages.value }, (_, index) => newStartPage + index);
       }
 
-      return pages;
+      const showFirstPage = startPage > 1;
+      const showLastPage = endPage < totalPages.value;
+
+      if (showFirstPage && !showLastPage) {
+        const diff = visiblePages.value - pages.length;
+        const newStartPage = Math.max(1, startPage - diff);
+        return Array.from({ length: visiblePages.value }, (_, index) => newStartPage + index);
+      } else if (!showFirstPage && showLastPage) {
+        const diff = visiblePages.value - pages.length;
+        const newEndPage = Math.min(totalPages.value, endPage + diff);
+        return Array.from({ length: visiblePages.value }, (_, index) => newEndPage - visiblePages.value + 1 + index);
+      } else if (showFirstPage && showLastPage) {
+        return pages;
+      } else {
+        return [];
+      }
     });
 
     const totalPages = computed(() => {
